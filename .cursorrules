@@ -1,0 +1,10 @@
+# Cursor Rules for KrishiGhor
+- Use small, PR-sized changes.
+- Workflow per step:
+  1) Create a feature branch from `dev`.
+  2) Commit with Conventional Commits.
+  3) Open a PR into `dev` with a DoD checklist.
+  4) Stop after PR is opened, do not merge unless asked.
+- Architectural stack: Django 5 + DRF + Tailwind + HTMX/Alpine, Supabase Postgres, Render deploy.
+- Subsystems: Users, Products, Market Pricing & Analytics, Orders & Payments, Logistics Integration.
+- Non-functional: mobile-first responsiveness, RBAC server-side, pagination, validation, error pages, logging, simple tests, DRF throttling, CORS/CSRF.
