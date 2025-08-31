@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport - Farmer Dashboard | KrishiGhor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gradient-to-br from-emerald-50 via-white to-sky-50 min-h-screen font-['Inter']">
+    <!-- Navigation Header -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-emerald-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="/dashboard/farmer.html" class="text-2xl font-bold text-emerald-600">KrishiGhor</a>
+                    <span class="text-slate-600">Farmer Dashboard</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/dashboard/farmer.html" class="text-emerald-600 hover:text-emerald-700 font-medium">← Back to Dashboard</a>
+                    <a href="/login.html" class="text-slate-600 hover:text-slate-800 font-medium">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800 mb-2">Transport & Delivery Management</h1>
+            <p class="text-slate-600">Arrange transportation, track deliveries, and manage logistics for your products</p>
+        </div>
+
+        <!-- Transport Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="card">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-emerald-600 mb-2">8</div>
+                    <div class="text-slate-600">Active Deliveries</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-sky-600 mb-2">5</div>
+                    <div class="text-slate-600">In Transit</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">3</div>
+                    <div class="text-slate-600">Scheduled</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">42</div>
+                    <div class="text-slate-600">Completed</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transport Request Form -->
+        <div class="card mb-8">
+            <h2 class="text-xl font-semibold text-slate-800 mb-6">Request Transport</h2>
+            <form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Product</label>
+                    <select class="form-select">
+                        <option>Select Product</option>
+                        <option>Basmati Rice</option>
+                        <option>Fresh Tomatoes</option>
+                        <option>Himsagar Mangoes</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Quantity</label>
+                    <input type="number" class="form-input" placeholder="50">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Destination</label>
+                    <select class="form-select">
+                        <option>Select City</option>
+                        <option>Dhaka</option>
+                        <option>Chittagong</option>
+                        <option>Sylhet</option>
+                        <option>Rajshahi</option>
+                    </select>
+                </div>
+                <div class="flex items-end">
+                    <button type="submit" class="btn-primary w-full">Request Transport</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Transport Request Form -->
+        <div class="card mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-slate-800">New Transport Request</h2>
+                <button class="btn-secondary" onclick="startVoiceInput()">
+                    <i class="fas fa-microphone mr-2"></i>
+                    Voice Input
+                </button>
+            </div>
+            <form id="transport-form" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Crop Type</label>
+                    <select id="crop-type" class="form-select" required>
+                        <option value="">Select Crop</option>
+                        <option value="rice">Rice (ধান)</option>
+                        <option value="wheat">Wheat (গম)</option>
+                        <option value="potato">Potato (আলু)</option>
+                        <option value="onion">Onion (পেঁয়াজ)</option>
+                        <option value="tomato">Tomato (টমেটো)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Quantity (kg)</label>
+                    <input type="number" id="quantity" class="form-input" min="1" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Vehicle Type</label>
+                    <select id="vehicle-type" class="form-select" required>
+                        <option value="">Select Vehicle</option>
+                        <option value="truck">Truck (ট্রাক)</option>
+                        <option value="pickup">Pickup (পিকআপ)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Origin Location</label>
+                    <div class="relative">
+                        <input type="text" id="origin" class="form-input pr-10" placeholder="Your current location" required>
+                        <button type="button" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-emerald-600 hover:text-emerald-700" onclick="getCurrentLocation()">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Destination District</label>
+                    <select id="district" class="form-select" onchange="loadMarkets()" required>
+                        <option value="">Select District</option>
+                        <option value="dhaka">Dhaka (ঢাকা)</option>
+                        <option value="chittagong">Chittagong (চট্টগ্রাম)</option>
+                        <option value="sylhet">Sylhet (সিলেট)</option>
+                        <option value="rajshahi">Rajshahi (রাজশাহী)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Market</label>
+                    <select id="market" class="form-select" required>
+                        <option value="">Select district first</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <button type="submit" class="btn-primary w-full">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Request Transport
+                    </button>
+                </div>
+            </form>
+
+            <!-- AI Suggestions -->
+            <div id="ai-suggestions" class="mt-6 p-4 bg-emerald-50 rounded-lg" style="display: none;">
+                <h4 class="font-semibold text-emerald-800 mb-3">AI Recommendations</h4>
+                <div class="suggestion-cards grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+            </div>
+
+            <!-- Cost Estimate -->
+            <div id="cost-estimate" class="mt-6 p-4 bg-sky-50 rounded-lg" style="display: none;">
+                <div class="estimate-card">
+                    <h4 class="font-semibold text-sky-800 mb-3">Estimated Cost</h4>
+                    <div class="cost-breakdown space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-slate-600">Distance:</span>
+                            <span id="distance" class="font-medium">-- km</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-600">Transport Cost:</span>
+                            <span id="transport-cost" class="font-medium">৳ --</span>
+                        </div>
+                        <div class="flex justify-between border-t pt-2">
+                            <span class="font-semibold text-slate-800">Total Cost:</span>
+                            <span id="total-cost" class="font-bold text-sky-600">৳ --</span>
+                        </div>
+                    </div>
+                    <div class="eta-info mt-3 text-sm text-slate-600">
+                        <i class="fas fa-clock mr-2"></i>
+                        Estimated Time: <span id="eta" class="font-medium">-- minutes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Tracking Panel -->
+        <div class="card mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-slate-800">Live Tracking</h2>
+                <div class="tracking-status flex items-center space-x-2">
+                    <span class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse" id="main-status-dot"></span>
+                    <span class="text-sm text-slate-600" id="main-status-text">Waiting</span>
+                </div>
+            </div>
+            
+            <div class="tracking-number-display mb-4 p-4 bg-slate-50 rounded-lg" id="tracking-number-display" style="display: none;">
+                <h4 class="font-medium text-slate-700 mb-2">Tracking Number</h4>
+                <div class="text-2xl font-bold text-emerald-600" id="tracking-number-value">KG-2025-001234</div>
+            </div>
+            
+            <div class="map-container bg-slate-100 rounded-lg overflow-hidden" id="map-container" style="height: 300px;">
+                <div class="map-placeholder flex flex-col items-center justify-center h-full text-slate-500" id="map-placeholder">
+                    <i class="fas fa-map-marked-alt text-4xl mb-2"></i>
+                    <p>Loading map...</p>
+                </div>
+                <div class="live-map relative h-full" id="live-map" style="display: none;">
+                    <div class="route-line absolute w-1 bg-emerald-500 h-20 transform rotate-45" style="top: 50%; left: 10%;"></div>
+                    <div class="truck-marker absolute text-2xl text-blue-600" style="top: 45%; left: 15%;">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="location-pin origin absolute text-red-500" style="top: 60%; left: 5%;">
+                        <i class="fas fa-map-marker-alt text-xl"></i>
+                    </div>
+                    <div class="location-pin destination absolute text-green-500" style="top: 40%; left: 85%;">
+                        <i class="fas fa-flag-checkered text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tracking-info mt-6">
+                <div class="vehicle-info p-4 bg-slate-50 rounded-lg" id="vehicle-info" style="display: none;">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="vehicle-details">
+                            <h4 class="font-semibold text-slate-800 mb-3">Vehicle Information</h4>
+                            <div class="space-y-2 text-sm">
+                                <p><span class="text-slate-600">Number:</span> <span id="vehicle-number" class="font-medium">Dhaka-Metro-G-123456</span></p>
+                                <p><span class="text-slate-600">Driver:</span> <span id="driver-name" class="font-medium">Md. Rahim Uddin</span></p>
+                                <p><span class="text-slate-600">Phone:</span> <span id="driver-phone" class="font-medium">01712345678</span></p>
+                            </div>
+                        </div>
+                        <div class="vehicle-status">
+                            <h4 class="font-semibold text-slate-800 mb-3">Current Status</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-tachometer-alt text-emerald-600"></i>
+                                    <span id="vehicle-speed" class="text-sm">45 km/h</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-route text-sky-600"></i>
+                                    <span id="remaining-distance" class="text-sm">12 km remaining</span>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-clock text-orange-600"></i>
+                                    <span id="remaining-time" class="text-sm">25 minutes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-tracker mt-6" id="progress-tracker">
+                    <h4 class="font-semibold text-slate-800 mb-4">Delivery Progress</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="progress-step p-4 bg-yellow-50 rounded-lg" id="step-pickup">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-box text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-slate-800">Pickup Pending</h5>
+                                    <span id="pickup-time" class="text-sm text-slate-600">--:--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress-step p-4 bg-blue-50 rounded-lg" id="step-transit">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-truck text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-slate-800">In Transit</h5>
+                                    <span id="transit-time" class="text-sm text-slate-600">--:--</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress-step p-4 bg-green-50 rounded-lg" id="step-delivery">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-flag-checkered text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-slate-800">Delivery</h5>
+                                    <span id="delivery-time" class="text-sm text-slate-600">--:--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Deliveries -->
+        <div class="card mb-8">
+            <h2 class="text-xl font-semibold text-slate-800 mb-6">Active Deliveries</h2>
+            <div class="space-y-4">
+                <!-- Delivery Item 1 -->
+                <div class="border border-slate-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-4 mb-3">
+                                <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-slate-800">Delivery #DEL-2024-001</h3>
+                                    <p class="text-sm text-slate-600">Basmati Rice → Dhaka</p>
+                                    <p class="text-sm text-slate-500">ETA: 2 hours</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                <div>
+                                    <span class="text-slate-500">Quantity:</span>
+                                    <span class="text-slate-800 font-medium">50 kg</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500">Vehicle:</span>
+                                    <span class="text-slate-800 font-medium">Truck BD-1234</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500">Driver:</span>
+                                    <span class="text-slate-800 font-medium">Karim Ahmed</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500">Status:</span>
+                                    <span class="text-emerald-600 font-medium">In Transit</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end space-y-3">
+                            <span class="status-badge status-transit">In Transit</span>
+                            <div class="flex space-x-2">
+                                <button class="btn-primary btn-sm">Track Live</button>
+                                <button class="btn-secondary btn-sm">Contact Driver</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Item 2 -->
+                <div class="border border-slate-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-4 mb-3">
+                                <div class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-slate-800">Delivery #DEL-2024-002</h3>
+                                    <p class="text-sm text-slate-600">Fresh Tomatoes → Chittagong</p>
+                                    <p class="text-sm text-slate-500">ETA: 6 hours</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                <div>
+                                    <span class="text-slate-500">Quantity:</span>
+                                    <span class="text-slate-800 font-medium">30 kg</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500">Vehicle:</span>
+                                    <span class="text-slate-800 font-medium">Van BD-5678</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500">Driver:</span>
+                                    <span class="text-slate-800 font-medium">Rahim Khan</span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-500">Status:</span>
+                                    <span class="text-sky-600 font-medium">Scheduled</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end space-y-3">
+                            <span class="status-badge status-scheduled">Scheduled</span>
+                            <div class="flex space-x-2">
+                                <button class="btn-primary btn-sm">Start Delivery</button>
+                                <button class="btn-secondary btn-sm">Modify</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delivery Analytics -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Delivery Performance -->
+            <div class="card">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4">Delivery Performance</h3>
+                <canvas id="deliveryChart" class="w-full" height="250"></canvas>
+            </div>
+
+            <!-- Route Optimization -->
+            <div class="card">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4">AI Route Optimization</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-medium text-emerald-800">Optimal Route Found</div>
+                                <div class="text-sm text-emerald-700">Dhaka → Chittagong via Highway</div>
+                                <div class="text-xs text-emerald-600 mt-1">Saves 45 minutes, reduces fuel cost by 15%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-sky-50 border border-sky-200 rounded-lg">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-sky-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-medium text-sky-800">Weather Alert</div>
+                                <div class="text-sm text-sky-700">Heavy rain expected on Dhaka route</div>
+                                <div class="text-xs text-sky-600 mt-1">Consider alternative route via Mymensingh</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="font-medium text-orange-800">ETA Update</div>
+                                <div class="text-sm text-orange-700">Traffic congestion detected</div>
+                                <div class="text-xs text-orange-600 mt-1">New ETA: 3.5 hours (was 2.5 hours)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Delivery Performance Chart
+        const ctx = document.getElementById('deliveryChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['On Time', 'Delayed', 'Early'],
+                datasets: [{
+                    data: [75, 20, 5],
+                    backgroundColor: [
+                        'rgb(16, 185, 129)',
+                        'rgb(239, 68, 68)',
+                        'rgb(59, 130, 246)'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Voice Input Modal -->
+    <div id="voice-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style="display: none;">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-slate-800">Voice Input</h3>
+                <button class="text-slate-400 hover:text-slate-600" onclick="closeVoiceModal()">&times;</button>
+            </div>
+            <div class="voice-interface text-center">
+                <div class="voice-animation relative mb-4">
+                    <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto">
+                        <i class="fas fa-microphone text-3xl text-emerald-600"></i>
+                    </div>
+                    <div class="pulse-ring absolute inset-0 rounded-full border-2 border-emerald-300 animate-ping"></div>
+                </div>
+                <p id="voice-status" class="text-slate-600 mb-4">Speak now...</p>
+                <p id="voice-transcript" class="text-sm text-slate-500 mb-4"></p>
+                <button id="voice-stop" class="btn-secondary" onclick="stopVoiceInput()" style="display: none;">
+                    <i class="fas fa-stop mr-2"></i>
+                    Stop
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" style="display: none;">
+        <div class="bg-white rounded-lg p-6 text-center">
+            <div class="spinner w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-slate-600">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/logout.js"></script>
+    <script>
+        // Voice Input Functions
+        let recognition;
+        let isListening = false;
+
+        function initializeVoiceInput() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'bn-BD'; // Bengali
+
+                recognition.onstart = function() {
+                    isListening = true;
+                    document.getElementById('voice-status').textContent = 'Listening...';
+                    document.getElementById('voice-stop').style.display = 'inline-block';
+                };
+
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('voice-transcript').textContent = transcript;
+                    processVoiceCommand(transcript);
+                };
+
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    document.getElementById('voice-status').textContent = 'Error: ' + event.error;
+                };
+
+                recognition.onend = function() {
+                    isListening = false;
+                    document.getElementById('voice-status').textContent = 'Voice input ended';
+                    document.getElementById('voice-stop').style.display = 'none';
+                };
+            }
+        }
+
+        function startVoiceInput() {
+            if (recognition && !isListening) {
+                document.getElementById('voice-modal').style.display = 'flex';
+                recognition.start();
+            }
+        }
+
+        function stopVoiceInput() {
+            if (recognition && isListening) {
+                recognition.stop();
+                closeVoiceModal();
+            }
+        }
+
+        function closeVoiceModal() {
+            document.getElementById('voice-modal').style.display = 'none';
+            if (recognition && isListening) {
+                recognition.stop();
+            }
+        }
+
+        function processVoiceCommand(transcript) {
+            // Process voice commands and fill form fields
+            const lowerTranscript = transcript.toLowerCase();
+            
+            if (lowerTranscript.includes('ধান') || lowerTranscript.includes('rice')) {
+                document.getElementById('crop-type').value = 'rice';
+            } else if (lowerTranscript.includes('গম') || lowerTranscript.includes('wheat')) {
+                document.getElementById('crop-type').value = 'wheat';
+            } else if (lowerTranscript.includes('আলু') || lowerTranscript.includes('potato')) {
+                document.getElementById('crop-type').value = 'potato';
+            }
+            
+            // Extract quantity
+            const quantityMatch = transcript.match(/(\d+)\s*(কেজি|kg|kilo)/i);
+            if (quantityMatch) {
+                document.getElementById('quantity').value = quantityMatch[1];
+            }
+            
+            // Extract destination
+            if (lowerTranscript.includes('ঢাকা') || lowerTranscript.includes('dhaka')) {
+                document.getElementById('district').value = 'dhaka';
+                loadMarkets();
+            } else if (lowerTranscript.includes('চট্টগ্রাম') || lowerTranscript.includes('chittagong')) {
+                document.getElementById('district').value = 'chittagong';
+                loadMarkets();
+            }
+        }
+
+        // Location Functions
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const { latitude, longitude } = position.coords;
+                        // Reverse geocoding would go here
+                        document.getElementById('origin').value = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+                    },
+                    function(error) {
+                        console.error('Error getting location:', error);
+                        alert('Unable to get your location. Please enter manually.');
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        }
+
+        // Market Loading
+        function loadMarkets() {
+            const district = document.getElementById('district').value;
+            const marketSelect = document.getElementById('market');
+            
+            marketSelect.innerHTML = '<option value="">Select market</option>';
+            
+            if (district === 'dhaka') {
+                const markets = ['Kawran Bazar', 'Karwan Bazar', 'Shahbagh Market', 'New Market'];
+                markets.forEach(market => {
+                    const option = document.createElement('option');
+                    option.value = market.toLowerCase().replace(/\s+/g, '-');
+                    option.textContent = market;
+                    marketSelect.appendChild(option);
+                });
+            } else if (district === 'chittagong') {
+                const markets = ['Chittagong Port Market', 'Halishahar Market', 'Patenga Market'];
+                markets.forEach(market => {
+                    const option = document.createElement('option');
+                    option.value = market.toLowerCase().replace(/\s+/g, '-');
+                    option.textContent = market;
+                    marketSelect.appendChild(option);
+                });
+            } else if (district === 'sylhet') {
+                const markets = ['Sylhet City Market', 'Zindabazar Market'];
+                markets.forEach(market => {
+                    const option = document.createElement('option');
+                    option.value = market.toLowerCase().replace(/\s+/g, '-');
+                    option.textContent = market;
+                    marketSelect.appendChild(option);
+                });
+            } else if (district === 'rajshahi') {
+                const markets = ['Rajshahi City Market', 'Godagari Market'];
+                markets.forEach(market => {
+                    const option = document.createElement('option');
+                    option.value = market.toLowerCase().replace(/\s+/g, '-');
+                    option.textContent = market;
+                    marketSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Tracking Functions
+        function initializeTracking() {
+            // Simulate real-time tracking updates
+            setInterval(updateTracking, 5000);
+        }
+
+        function updateTracking() {
+            // Simulate tracking updates
+            const statuses = ['Waiting', 'Pickup', 'In Transit', 'Delivered'];
+            const currentStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            
+            document.getElementById('main-status-text').textContent = currentStatus;
+            
+            // Update status dot color
+            const statusDot = document.getElementById('main-status-dot');
+            if (currentStatus === 'Waiting') {
+                statusDot.className = 'w-3 h-3 bg-yellow-400 rounded-full animate-pulse';
+            } else if (currentStatus === 'Pickup') {
+                statusDot.className = 'w-3 h-3 bg-blue-400 rounded-full animate-pulse';
+            } else if (currentStatus === 'In Transit') {
+                statusDot.className = 'w-3 h-3 bg-emerald-400 rounded-full animate-pulse';
+            } else if (currentStatus === 'Delivered') {
+                statusDot.className = 'w-3 h-3 bg-green-400 rounded-full';
+            }
+            
+            // Show tracking number when status changes
+            if (currentStatus !== 'Waiting') {
+                document.getElementById('tracking-number-display').style.display = 'block';
+                document.getElementById('vehicle-info').style.display = 'block';
+                
+                // Update progress steps
+                if (currentStatus === 'Pickup') {
+                    document.getElementById('step-pickup').className = 'progress-step p-4 bg-green-50 rounded-lg';
+                    document.getElementById('pickup-time').textContent = new Date().toLocaleTimeString();
+                } else if (currentStatus === 'In Transit') {
+                    document.getElementById('step-transit').className = 'progress-step p-4 bg-green-50 rounded-lg';
+                    document.getElementById('transit-time').textContent = new Date().toLocaleTimeString();
+                } else if (currentStatus === 'Delivered') {
+                    document.getElementById('step-delivery').className = 'progress-step p-4 bg-green-50 rounded-lg';
+                    document.getElementById('delivery-time').textContent = new Date().toLocaleTimeString();
+                }
+            }
+        }
+
+        // Form submission
+        document.getElementById('transport-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'flex';
+            
+            // Simulate form processing
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                
+                // Show AI suggestions
+                document.getElementById('ai-suggestions').style.display = 'block';
+                document.getElementById('cost-estimate').style.display = 'block';
+                
+                // Generate mock data
+                const distance = Math.floor(Math.random() * 200) + 50;
+                const transportCost = distance * 2.5;
+                const totalCost = transportCost + 100;
+                const eta = Math.floor(distance / 0.8); // Assuming 48 km/h average speed
+                
+                document.getElementById('distance').textContent = distance + ' km';
+                document.getElementById('transport-cost').textContent = '৳' + transportCost.toFixed(0);
+                document.getElementById('total-cost').textContent = '৳' + totalCost.toFixed(0);
+                document.getElementById('eta').textContent = eta + ' minutes';
+                
+                // Generate AI suggestions
+                const suggestions = [
+                    'Consider shipping during off-peak hours to reduce costs',
+                    'Bulk shipping with other farmers can reduce per-unit cost',
+                    'Check weather forecast for optimal shipping conditions'
+                ];
+                
+                const suggestionCards = document.querySelector('.suggestion-cards');
+                suggestionCards.innerHTML = '';
+                suggestions.forEach(suggestion => {
+                    const card = document.createElement('div');
+                    card.className = 'p-3 bg-white rounded border border-emerald-200';
+                    card.innerHTML = `<p class="text-sm text-emerald-700">${suggestion}</p>`;
+                    suggestionCards.appendChild(card);
+                });
+                
+                alert('Transport request submitted successfully!');
+            }, 2000);
+        });
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeVoiceInput();
+            initializeTracking();
+        });
+    </script>
+</body>
+</html>

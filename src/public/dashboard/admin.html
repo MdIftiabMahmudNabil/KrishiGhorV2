@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - KrishiGhor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --ring: rgba(16, 185, 129, 0.35);
+        }
+        body {
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial;
+        }
+        .glass {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .card {
+            box-shadow: 0 10px 25px rgba(2, 6, 23, 0.06);
+        }
+        .shadow-soft {
+            box-shadow: 0 8px 20px rgba(2, 6, 23, 0.08);
+        }
+        .ring-primary {
+            box-shadow: 0 0 0 6px var(--ring);
+        }
+        .sidebar-active {
+            background: linear-gradient(135deg, #7c3aed, #059669);
+            color: white;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(2, 6, 23, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 glass border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center">
+                            <img src="/assets/logo.png" alt="KrishiGhor Logo" class="h-10 w-auto mr-3">
+                            <span class="text-xl font-extrabold text-slate-900">KrishiGhor</span>
+                        </div>
+                        <div class="ml-6 border-l border-slate-300 pl-6">
+                            <span class="text-sm text-slate-500" data-i18n="dashboard.admin_panel">অ্যাডমিন প্যানেল</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- System Status -->
+                    <div class="flex items-center space-x-2">
+                        <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
+                        <span class="text-sm text-slate-600">সিস্টেম স্বাভাবিক</span>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button class="p-2 text-slate-600 hover:text-slate-900 relative rounded-xl hover:bg-slate-50">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="absolute -top-1 -right-1 bg-purple-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">7</span>
+                        </button>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <select id="languageSelect" class="text-sm border-slate-300 rounded-xl px-3 py-2 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <option value="bn">বাংলা</option>
+                        <option value="en">English</option>
+                    </select>
+
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button id="profileDropdown" class="flex items-center space-x-2 text-slate-700 hover:text-slate-900 rounded-xl px-3 py-2 hover:bg-slate-50">
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Profile">
+                            <span class="text-sm font-medium" data-i18n="user.name">সাজ্জাদ হোসেন</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex h-screen bg-slate-50 fade-in">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-soft border-r border-slate-200">
+            <div class="p-6">
+                <nav class="space-y-2">
+                    <a href="/dashboard/admin.html" class="sidebar-link active flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-purple-50 transition-all duration-200">
+                        <i class="fas fa-home"></i>
+                        <span data-i18n="admin.dashboard">ড্যাশবোর্ড</span>
+                    </a>
+                    <a href="/dashboard/admin/users.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-purple-50 transition-all duration-200">
+                        <i class="fas fa-users"></i>
+                        <span data-i18n="admin.users">ব্যবহারকারী</span>
+                    </a>
+                    <a href="/dashboard/admin/products.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-purple-50 transition-all duration-200">
+                        <i class="fas fa-seedling"></i>
+                        <span data-i18n="admin.products">পণ্য পরিচালনা</span>
+                    </a>
+                    <a href="/dashboard/admin/orders.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-purple-50 transition-all duration-200">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span data-i18n="admin.orders">অর্ডার পরিচালনা</span>
+                    </a>
+                    <a href="/dashboard/admin/pricing.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-purple-50 transition-all duration-200">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-i18n="admin.pricing">মূল্য নিয়ন্ত্রণ</span>
+                    </a>
+                    <a href="/dashboard/admin/transport.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-purple-50 transition-all duration-200">
+                        <i class="fas fa-truck"></i>
+                        <span data-i18n="admin.transport">পরিবহন</span>
+                    </a>
+                    <a href="/dashboard/admin/payments.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-purple-50 transition-all duration-200">
+                        <i class="fas fa-credit-card"></i>
+                        <span data-i18n="admin.payments">পেমেন্ট</span>
+                    </a>
+                    <a href="/dashboard/admin/analytics.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-purple-50 transition-all duration-200">
+                        <i class="fas fa-chart-bar"></i>
+                        <span data-i18n="admin.analytics">অ্যানালিটিক্স</span>
+                    </a>
+                    <a href="/dashboard/admin/settings.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-purple-50 transition-all duration-200">
+                        <i class="fas fa-cog"></i>
+                        <span data-i18n="admin.settings">সেটিংস</span>
+                    </a>
+                </nav>
+                
+                <!-- System Info -->
+                <div class="mt-8 p-4 bg-gradient-to-br from-purple-50 to-emerald-50 rounded-2xl border border-purple-100">
+                    <h3 class="text-sm font-semibold text-purple-800 mb-3" data-i18n="admin.systemInfo">সিস্টেম তথ্য</h3>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between">
+                            <span class="text-purple-600">সার্ভার:</span>
+                            <span class="text-purple-800 font-medium">অনলাইন</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-purple-600">আপটাইম:</span>
+                            <span class="text-purple-800 font-medium">৯৮.৫%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-purple-600">ব্যবহারকারী:</span>
+                            <span class="text-purple-800 font-medium">১২,৪৫৬</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Dashboard Section -->
+            <div id="dashboardSection" class="content-section p-8">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-extrabold text-slate-900" data-i18n="admin.welcome">স্বাগতম, সাজ্জাদ হোসেন!</h1>
+                    <p class="text-slate-600 mt-2" data-i18n="admin.overview">কৃষিঘর প্ল্যাটফর্মের সামগ্রিক নিয়ন্ত্রণ ও পরিচালনা</p>
+                </div>
+
+                <!-- Key Metrics -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-emerald-50 text-emerald-600">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.totalUsers">মোট ব্যবহারকারী</p>
+                                <p class="text-2xl font-bold text-slate-900">12,456</p>
+                                <p class="text-sm text-emerald-600">+৫.২% এ মাসে</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-sky-50 text-sky-600">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.totalOrders">মোট অর্ডার</p>
+                                <p class="text-2xl font-bold text-slate-900">8,239</p>
+                                <p class="text-sm text-sky-600">+১২.৮% এ মাসে</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-yellow-50 text-yellow-600">
+                                <i class="fas fa-coins text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.revenue">মোট আয়</p>
+                                <p class="text-2xl font-bold text-slate-900">৳২,৪৫,৬৭৮</p>
+                                <p class="text-sm text-yellow-600">+৮.৪% এ মাসে</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-purple-50 text-purple-600">
+                                <i class="fas fa-seedling text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.activeProducts">সক্রিয় পণ্য</p>
+                                <p class="text-2xl font-bold text-slate-900">1,834</p>
+                                <p class="text-sm text-purple-600">+৩.৬% এ মাসে</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts and Recent Activity -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Platform Growth -->
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4" data-i18n="charts.growth">প্ল্যাটফর্ম বৃদ্ধি</h3>
+                        <canvas id="growthChart" width="400" height="300"></canvas>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4" data-i18n="recent.activities">সাম্প্রতিক কার্যক্রম</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3 p-3 bg-slate-50 rounded-xl">
+                                <div class="p-2 bg-emerald-100 rounded-lg">
+                                    <i class="fas fa-user-plus text-emerald-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-slate-900">নতুন কৃষক নিবন্ধন</p>
+                                    <p class="text-xs text-slate-600">আহমেদ আলী - ময়মনসিংহ</p>
+                                    <p class="text-xs text-slate-500">৫ মিনিট আগে</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3 p-3 bg-slate-50 rounded-xl">
+                                <div class="p-2 bg-sky-100 rounded-lg">
+                                    <i class="fas fa-shopping-cart text-sky-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-slate-900">বড় অর্ডার সম্পন্ন</p>
+                                    <p class="text-xs text-slate-600">৫০০ কেজি ধান - ৳২৫,০০০</p>
+                                    <p class="text-xs text-slate-500">১৫ মিনিট আগে</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3 p-3 bg-slate-50 rounded-xl">
+                                <div class="p-2 bg-yellow-100 rounded-lg">
+                                    <i class="fas fa-exclamation-triangle text-yellow-600 text-sm"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-slate-900">মূল্য অস্বাভাবিকতা সনাক্ত</p>
+                                    <p class="text-xs text-slate-600">টমেটোর দাম ৩০% বৃদ্ধি</p>
+                                    <p class="text-xs text-slate-500">২৫ মিনিট আগে</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Alerts -->
+                <div class="card bg-white rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4" data-i18n="admin.alerts">সিস্টেম সতর্কতা</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+                            <div class="flex items-center">
+                                <i class="fas fa-exclamation-circle text-red-500 mr-2"></i>
+                                <span class="text-sm font-medium text-red-800">উচ্চ ঝুঁকিপূর্ণ পেমেন্ট</span>
+                            </div>
+                            <p class="text-sm text-red-600 mt-1">৩টি সন্দেহজনক লেনদেন</p>
+                        </div>
+                        
+                        <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-yellow-500 mr-2"></i>
+                                <span class="text-sm font-medium text-yellow-800">বিলম্বিত ডেলিভারি</span>
+                            </div>
+                            <p class="text-sm text-yellow-600 mt-1">১২টি অর্ডার সময়সীমা অতিক্রম</p>
+                        </div>
+                        
+                        <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                            <div class="flex items-center">
+                                <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                                <span class="text-sm font-medium text-blue-800">সিস্টেম আপডেট</span>
+                            </div>
+                            <p class="text-sm text-blue-600 mt-1">নতুন ফিচার উপলব্ধ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Settings Section -->
+            <div id="settingsSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="admin.settings">সিস্টেম সেটিংস</h2>
+                
+                <!-- System settings -->
+                <div class="card bg-white rounded-2xl p-6">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-900 mb-4">সাধারণ সেটিংস</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">প্ল্যাটফর্ম নাম</label>
+                                    <input type="text" value="KrishiGhor" class="w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">যোগাযোগ ইমেইল</label>
+                                    <input type="email" value="admin@krishighor.com" class="w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-900 mb-4">নিরাপত্তা সেটিংস</h3>
+                            <div class="space-y-4">
+                                <label class="flex items-center">
+                                    <input type="checkbox" checked class="rounded text-emerald-600 focus:ring-emerald-500">
+                                    <span class="ml-2 text-sm text-slate-700">দুই-ফ্যাক্টর প্রমাণীকরণ সক্রিয়</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" checked class="rounded text-emerald-600 focus:ring-emerald-500">
+                                    <span class="ml-2 text-sm text-slate-700">স্বয়ংক্রিয় জালিয়াতি সনাক্তকরণ</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="rounded text-emerald-600 focus:ring-emerald-500">
+                                    <span class="ml-2 text-sm text-slate-700">রক্ষণাবেক্ষণ মোড</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button class="bg-purple-600 text-white px-6 py-3 rounded-xl hover:bg-purple-700">
+                            সেটিংস সংরক্ষণ করুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/i18n.js"></script>
+    <script src="/js/forms.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/charts.js"></script>
+    <script src="/js/logout.js"></script>
+
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize i18n
+            I18n.init();
+            
+            // Initialize charts
+            if (typeof Chart !== 'undefined') {
+                // Growth Chart
+                const growthCtx = document.getElementById('growthChart');
+                if (growthCtx) {
+                    new Chart(growthCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['জানু', 'ফেব', 'মার্চ', 'এপ্রিল', 'মে', 'জুন'],
+                            datasets: [{
+                                label: 'ব্যবহারকারী',
+                                data: [1200, 1900, 2800, 3900, 5200, 6800],
+                                borderColor: '#7c3aed',
+                                backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                                tension: 0.4
+                            }, {
+                                label: 'অর্ডার',
+                                data: [800, 1400, 2100, 2800, 3600, 4500],
+                                borderColor: '#059669',
+                                backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

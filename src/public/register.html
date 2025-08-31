@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register | KrishiGhor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial}
+    .shadow-soft{box-shadow:0 8px 24px rgba(2,6,23,.10)}
+    .frame{height:clamp(640px,85vh,860px)}
+    .form-wrap{max-width:520px}
+    .fade{transition:opacity .8s ease}
+    /* compact form so button+link are visible */
+    .tight h1{margin-bottom:.25rem}
+    .tight .row{margin-top:.45rem}
+    .tight label{margin-bottom:.25rem}
+    .tight input,.tight select{padding:.55rem .7rem}
+    .tight .hint{margin-top:.2rem}
+    @media(max-width:1023px){.frame{height:auto}}
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+
+  <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 bg-white rounded-2xl overflow-hidden shadow-soft frame">
+
+    <!-- LEFT: video slideshow -->
+    <aside class="relative hidden lg:block">
+      <video id="vid0" class="absolute inset-0 w-full h-full object-cover fade" autoplay muted loop playsinline preload="auto">
+        <source src="assets/signup-bg/scene1.mp4" type="video/mp4">
+      </video>
+      <video id="vid1" class="absolute inset-0 w-full h-full object-cover opacity-0 fade" autoplay muted loop playsinline preload="auto">
+        <source src="assets/signup-bg/scene2.mp4" type="video/mp4">
+      </video>
+
+      <!-- Brand -->
+      <div class="absolute top-6 left-6 z-10 flex items-center gap-2">
+        <img src="assets/logo.png" alt="KrishiGhor Logo" class="h-8 w-auto">
+        <span class="text-black font-bold text-xl drop-shadow">KrishiGhor</span>
+      </div>
+      <!-- Caption -->
+      <div class="absolute bottom-6 left-6 z-10 text-white text-lg font-bold drop-shadow" data-i18n="video.caption">
+        Empowering Farmers, Connecting Markets
+      </div>
+    </aside>
+
+    <!-- RIGHT: form -->
+    <main class="flex items-center justify-center px-6 sm:px-8 lg:px-10">
+      <div class="form-wrap w-full tight pb-3">
+        <!-- Header (title + lang aligned) -->
+        <div class="flex items-start justify-between gap-3 mb-2">
+          <div>
+            <h1 class="text-2xl font-extrabold text-slate-900" data-i18n="register.title">Create Account</h1>
+            <p class="text-slate-600" data-i18n="register.subtitle">Join the KrishiGhor community</p>
+          </div>
+          <select id="langSelect"
+                  class="h-9 shrink-0 ml-auto rounded-lg border border-slate-300 px-2 py-1 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <option value="en">EN</option>
+            <option value="bn">বাংলা</option>
+          </select>
+        </div>
+
+        <form method="POST" action="/api/auth/register" class="grid grid-cols-2 gap-x-3">
+
+          <!-- Role -->
+          <div class="col-span-2 row">
+            <label class="block text-sm font-medium text-slate-700" data-i18n="register.role">I am a</label>
+            <select id="role" name="role" required class="w-full border rounded-lg focus:ring-emerald-500">
+              <option value="" data-i18n="role.select">Select Role</option>
+              <option value="farmer" data-i18n="role.farmer">Farmer</option>
+              <option value="buyer" data-i18n="role.buyer">Buyer</option>
+              <option value="admin" data-i18n="role.admin">Admin</option>
+            </select>
+          </div>
+
+          <!-- Names -->
+          <div class="row">
+            <label class="block text-sm text-slate-700" data-i18n="register.firstName">First Name</label>
+            <input type="text" class="w-full border rounded-lg focus:ring-emerald-500" placeholder="e.g., Rahim" data-i18n-placeholder="ph.firstName">
+          </div>
+          <div class="row">
+            <label class="block text-sm text-slate-700" data-i18n="register.lastName">Last Name</label>
+            <input type="text" class="w-full border rounded-lg focus:ring-emerald-500" placeholder="e.g., Uddin" data-i18n-placeholder="ph.lastName">
+          </div>
+
+          <!-- Email -->
+          <div class="col-span-2 row">
+            <label class="block text-sm text-slate-700" data-i18n="register.email">Email Address</label>
+            <input type="email" class="w-full border rounded-lg focus:ring-emerald-500" placeholder="e.g., user@example.com" data-i18n-placeholder="ph.email">
+          </div>
+
+          <!-- Extra (hidden for Admin) -->
+          <div id="extraWrap" class="contents">
+            <div class="row">
+              <label class="block text-sm text-slate-700" data-i18n="register.phone">Phone Number</label>
+              <input type="tel" class="w-full border rounded-lg focus:ring-emerald-500" placeholder="+880 1XXX-XXXXXX" data-i18n-placeholder="ph.phone">
+            </div>
+            <div class="row">
+              <label class="block text-sm text-slate-700" data-i18n="register.region">Region</label>
+              <select class="w-full border rounded-lg focus:ring-emerald-500">
+                <option value="" data-i18n="region.select">Select Region</option>
+                <option>Dhaka</option><option>Chittagong</option><option>Rajshahi</option>
+                <option>Khulna</option><option>Barisal</option><option>Sylhet</option>
+                <option>Rangpur</option><option>Mymensingh</option>
+              </select>
+            </div>
+            <div class="col-span-2 row">
+              <label class="block text-sm text-slate-700" data-i18n="register.district">District</label>
+              <input type="text" class="w-full border rounded-lg focus:ring-emerald-500" placeholder="e.g., Cumilla, Rangpur" data-i18n-placeholder="ph.district">
+            </div>
+          </div>
+
+          <!-- Passwords -->
+          <div class="row">
+            <label class="block text-sm text-slate-700" data-i18n="register.password">Password</label>
+            <input type="password" class="w-full border rounded-lg focus:ring-emerald-500" placeholder="e.g., Abcd@1234" data-i18n-placeholder="ph.password">
+          </div>
+          <div class="row">
+            <label class="block text-sm text-slate-700" data-i18n="register.confirmPassword">Confirm Password</label>
+            <input type="password" class="w-full border rounded-lg focus:ring-emerald-500" placeholder="e.g., Abcd@1234" data-i18n-placeholder="ph.password">
+          </div>
+
+          <!-- Terms -->
+          <div class="col-span-2 row flex items-start gap-2">
+            <input type="checkbox" class="mt-1 rounded text-emerald-600 focus:ring-emerald-500">
+            <label class="text-sm text-slate-600" data-i18n="register.terms">
+              I agree to the <a href="#" class="text-emerald-600">Terms of Service</a> and <a href="#" class="text-emerald-600">Privacy Policy</a>
+            </label>
+          </div>
+
+          <!-- Button -->
+          <div class="col-span-2 row">
+            <button type="submit" class="w-full bg-emerald-600 text-white font-semibold py-2.5 rounded-lg" data-i18n="register.submit">
+              Create Account
+            </button>
+          </div>
+
+          <!-- Login link (now clearly visible) -->
+          <div class="col-span-2 text-center text-sm text-slate-600 mt-2">
+            <span data-i18n="register.loginText">Already have an account?</span>
+            <a href="/login.html" class="text-emerald-600 hover:text-emerald-700 font-medium" data-i18n="register.loginLink">Sign In</a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Video cross-fade
+    const vids=[document.getElementById('vid0'),document.getElementById('vid1')]; let v=0;
+    setInterval(()=>{vids[v].classList.add('opacity-0'); vids[1-v].classList.remove('opacity-0'); v=1-v;},8000);
+
+    // Role-dependent fields
+    const roleSel=document.getElementById('role'), extraWrap=document.getElementById('extraWrap');
+    function updateRole(){ extraWrap.style.display=(roleSel.value==='admin')?'none':'contents'; }
+    roleSel.addEventListener('change',updateRole); updateRole();
+
+    // i18n
+    const I18N={
+      en:{"video.caption":"Empowering Farmers, Connecting Markets","register.title":"Create Account","register.subtitle":"Join the KrishiGhor community","register.role":"I am a","role.select":"Select Role","role.farmer":"Farmer","role.buyer":"Buyer","role.admin":"Admin","register.firstName":"First Name","register.lastName":"Last Name","register.email":"Email Address","register.phone":"Phone Number","register.region":"Region","region.select":"Select Region","register.district":"District","register.password":"Password","register.confirmPassword":"Confirm Password","register.terms":"I agree to the <a href='#' class='text-emerald-600'>Terms of Service</a> and <a href='#' class='text-emerald-600'>Privacy Policy</a>","register.submit":"Create Account","register.loginText":"Already have an account?","register.loginLink":"Sign In","ph.firstName":"e.g., Rahim","ph.lastName":"e.g., Uddin","ph.email":"e.g., user@example.com","ph.phone":"+880 1XXX-XXXXXX","ph.district":"e.g., Cumilla, Rangpur","ph.password":"e.g., Abcd@1234"},
+      bn:{"video.caption":"কৃষকদের ক্ষমতায়ন, বাজারের সংযোগ স্থাপন","register.title":"একাউন্ট তৈরি করুন","register.subtitle":"কৃষিঘর কমিউনিটিতে যোগ দিন","register.role":"আমি একজন","role.select":"ভূমিকা নির্বাচন করুন","role.farmer":"কৃষক","role.buyer":"ক্রেতা","role.admin":"অ্যাডমিন","register.firstName":"প্রথম নাম","register.lastName":"শেষ নাম","register.email":"ইমেইল ঠিকানা","register.phone":"ফোন নম্বর","register.region":"অঞ্চল","region.select":"অঞ্চল নির্বাচন করুন","register.district":"জেলা","register.password":"পাসওয়ার্ড","register.confirmPassword":"পাসওয়ার্ড নিশ্চিত করুন","register.terms":"আমি <a href='#' class='text-emerald-600'>সেবার শর্তাবলী</a> এবং <a href='#' class='text-emerald-600'>গোপনীয়তা নীতি</a>তে সম্মত","register.submit":"একাউন্ট তৈরি করুন","register.loginText":"ইতিমধ্যে একাউন্ট আছে?","register.loginLink":"সাইন ইন","ph.firstName":"যেমন, রাহিম","ph.lastName":"যেমন, উদ্দিন","ph.email":"যেমন, user@example.com","ph.phone":"+৮৮০ ১XXX-XXXXXX","ph.district":"যেমন, কুমিল্লা, রংপুর","ph.password":"যেমন, Abcd@1234"}
+    };
+    function applyTranslations(lang){
+      const d=I18N[lang]||I18N.en;
+      document.documentElement.lang=lang;
+      document.querySelectorAll('[data-i18n]').forEach(el=>{el.innerHTML=d[el.getAttribute('data-i18n')]});
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=d[el.getAttribute('data-i18n-placeholder')]});
+    }
+    const langSel=document.getElementById('langSelect');
+    langSel.value=localStorage.getItem('kg_lang')||'en'; applyTranslations(langSel.value);
+    langSel.addEventListener('change',e=>{localStorage.setItem('kg_lang',e.target.value);applyTranslations(e.target.value)});
+  </script>
+</body>
+</html>

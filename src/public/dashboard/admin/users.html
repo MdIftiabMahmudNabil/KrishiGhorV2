@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ব্যবহারকারী পরিচালনা - KrishiGhor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-['Inter']">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/dashboard/admin.html" class="flex items-center space-x-3">
+                        <img src="/assets/logo.png" alt="KrishiGhor Logo" class="h-10 w-auto">
+                        <span class="text-xl font-bold text-slate-900">KrishiGhor</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                <span class="text-purple-600 font-semibold text-sm">অ</span>
+                            </div>
+                            <span class="font-medium">অ্যাডমিন</span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-900">ব্যবহারকারী পরিচালনা</h1>
+                <p class="text-slate-600 mt-1">সকল ব্যবহারকারীর তথ্য ও কার্যক্রম পরিচালনা করুন</p>
+            </div>
+            <button class="btn-primary">
+                <i class="fas fa-plus mr-2"></i>
+                নতুন ব্যবহারকারী
+            </button>
+        </div>
+
+        <!-- User Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-2xl font-bold text-slate-900">৮,৪৫৬</p>
+                        <p class="text-sm text-slate-600">কৃষক</p>
+                    </div>
+                    <div class="p-3 bg-emerald-50 rounded-xl">
+                        <i class="fas fa-seedling text-emerald-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-2xl font-bold text-slate-900">৩,৮৯২</p>
+                        <p class="text-sm text-slate-600">ক্রেতা</p>
+                    </div>
+                    <div class="p-3 bg-sky-50 rounded-xl">
+                        <i class="fas fa-shopping-bag text-sky-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-2xl font-bold text-slate-900">১০৮</p>
+                        <p class="text-sm text-slate-600">পরিবহনকারী</p>
+                    </div>
+                    <div class="p-3 bg-purple-50 rounded-xl">
+                        <i class="fas fa-truck text-purple-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Management Tools -->
+        <div class="card mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <button class="btn-secondary">
+                        <i class="fas fa-download mr-2"></i>
+                        এক্সপোর্ট করুন
+                    </button>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="text" placeholder="নাম বা ইমেইল খুঁজুন" class="form-input" id="userSearch">
+                    <select class="form-select" id="userRoleFilter">
+                        <option value="">সব ধরন</option>
+                        <option value="farmer">কৃষক</option>
+                        <option value="buyer">ক্রেতা</option>
+                        <option value="transporter">পরিবহনকারী</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="card">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-slate-200">
+                            <th class="text-left p-4 font-semibold text-slate-700">নাম</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">ইমেইল</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">ধরন</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">অঞ্চল</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">যোগদান</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">স্ট্যাটাস</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">কার্যক্রম</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                                        <span class="text-emerald-600 font-semibold">আ</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate-900">আব্দুল রহমান</p>
+                                        <p class="text-sm text-slate-500">+880 1712-345678</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4 text-slate-600">abdul@example.com</td>
+                            <td class="p-4">
+                                <span class="badge badge-farmer">কৃষক</span>
+                            </td>
+                            <td class="p-4 text-slate-600">ময়মনসিংহ</td>
+                            <td class="p-4 text-slate-600">২০২৩-১২-১৫</td>
+                            <td class="p-4">
+                                <span class="badge badge-active">সক্রিয়</span>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center space-x-2">
+                                    <button class="btn-sm btn-secondary">
+                                        <i class="fas fa-edit mr-1"></i>
+                                        সম্পাদনা
+                                    </button>
+                                    <button class="btn-sm btn-danger">
+                                        <i class="fas fa-trash mr-1"></i>
+                                        মুছুন
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <span class="text-blue-600 font-semibold">স</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate-900">সাবরিনা আক্তার</p>
+                                        <p class="text-sm text-slate-500">+880 1812-345678</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4 text-slate-600">sabrina@example.com</td>
+                            <td class="p-4">
+                                <span class="badge badge-buyer">ক্রেতা</span>
+                            </td>
+                            <td class="p-4 text-slate-600">ঢাকা</td>
+                            <td class="p-4 text-slate-600">২০২৩-১১-২০</td>
+                            <td class="p-4">
+                                <span class="badge badge-active">সক্রিয়</span>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center space-x-2">
+                                    <button class="btn-sm btn-secondary">
+                                        <i class="fas fa-edit mr-1"></i>
+                                        সম্পাদনা
+                                    </button>
+                                    <button class="btn-sm btn-danger">
+                                        <i class="fas fa-trash mr-1"></i>
+                                        মুছুন
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                        <span class="text-purple-600 font-semibold">ম</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate-900">মাহমুদ হাসান</p>
+                                        <p class="text-sm text-slate-500">+880 1912-345678</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4 text-slate-600">mahmud@example.com</td>
+                            <td class="p-4">
+                                <span class="badge badge-transporter">পরিবহনকারী</span>
+                            </td>
+                            <td class="p-4 text-slate-600">চট্টগ্রাম</td>
+                            <td class="p-4 text-slate-600">২০২৩-১০-১০</td>
+                            <td class="p-4">
+                                <span class="badge badge-active">সক্রিয়</span>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center space-x-2">
+                                    <button class="btn-sm btn-secondary">
+                                        <i class="fas fa-edit mr-1"></i>
+                                        সম্পাদনা
+                                    </button>
+                                    <button class="btn-sm btn-danger">
+                                        <i class="fas fa-trash mr-1"></i>
+                                        মুছুন
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/i18n.js"></script>
+    <script src="/js/forms.js"></script>
+    <script src="/js/logout.js"></script>
+    <script>
+        // Initialize i18n
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof I18n !== 'undefined') {
+                I18n.init();
+            }
+        });
+    </script>
+</body>
+</html>

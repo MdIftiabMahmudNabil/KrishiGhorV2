@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Farmer Dashboard | KrishiGhor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gradient-to-br from-emerald-50 via-white to-sky-50 min-h-screen font-['Inter']">
+    <!-- Navigation Header -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-emerald-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="/dashboard/farmer.html" class="text-2xl font-bold text-emerald-600">KrishiGhor</a>
+                    <span class="text-slate-600">Farmer Dashboard</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/dashboard/farmer.html" class="text-emerald-600 hover:text-emerald-700 font-medium">← Back to Dashboard</a>
+                    <a href="/login.html" class="text-slate-600 hover:text-slate-800 font-medium">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800 mb-2">Product Management</h1>
+            <p class="text-slate-600">Manage your agricultural products, inventory, and availability</p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-slate-800">Add New Product</h3>
+                        <p class="text-sm text-slate-600">List a new crop or product</p>
+                    </div>
+                </div>
+                <button class="btn-primary w-full mt-4">Add Product</button>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-slate-800">Inventory Status</h3>
+                        <p class="text-sm text-slate-600">Check stock levels</p>
+                    </div>
+                </div>
+                <button class="btn-primary w-full mt-4">View Inventory</button>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-slate-800">Sales Analytics</h3>
+                        <p class="text-sm text-slate-600">View performance metrics</p>
+                    </div>
+                </div>
+                <button class="btn-primary w-full mt-4">View Analytics</button>
+            </div>
+        </div>
+
+        <!-- Product List -->
+        <div class="card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-slate-800">Your Products</h2>
+                <div class="flex space-x-3">
+                    <input type="text" placeholder="Search products..." class="form-input">
+                    <select class="form-select">
+                        <option>All Categories</option>
+                        <option>Grains</option>
+                        <option>Vegetables</option>
+                        <option>Fruits</option>
+                        <option>Spices</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-slate-200">
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Product</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Category</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Stock</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Price</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Status</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=40&h=40&fit=crop&crop=center" alt="Rice" class="w-10 h-10 rounded-lg object-cover">
+                                    <div>
+                                        <div class="font-medium text-slate-800">Basmati Rice</div>
+                                        <div class="text-sm text-slate-500">Premium quality</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4 text-slate-600">Grains</td>
+                            <td class="py-3 px-4">
+                                <span class="text-emerald-600 font-medium">150 kg</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="font-medium text-slate-800">৳120/kg</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="status-badge status-active">Active</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex space-x-2">
+                                    <button class="btn-secondary btn-sm">Edit</button>
+                                    <button class="btn-danger btn-sm">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=40&h=40&fit=crop&crop=center" alt="Tomatoes" class="w-10 h-10 rounded-lg object-cover">
+                                    <div>
+                                        <div class="font-medium text-slate-800">Fresh Tomatoes</div>
+                                        <div class="text-sm text-slate-500">Organic</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4 text-slate-600">Vegetables</td>
+                            <td class="py-3 px-4">
+                                <span class="text-orange-600 font-medium">75 kg</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="font-medium text-slate-800">৳80/kg</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="status-badge status-active">Active</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex space-x-2">
+                                    <button class="btn-secondary btn-sm">Edit</button>
+                                    <button class="btn-danger btn-sm">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1550254478-ead40cc54513?w=40&h=40&fit=crop&crop=center" alt="Mangoes" class="w-10 h-10 rounded-lg object-cover">
+                                    <div>
+                                        <div class="font-medium text-slate-800">Himsagar Mangoes</div>
+                                        <div class="text-sm text-slate-500">Seasonal</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4 text-slate-600">Fruits</td>
+                            <td class="py-3 px-4">
+                                <span class="text-red-600 font-medium">25 kg</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="font-medium text-slate-800">৳200/kg</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <span class="status-badge status-warning">Low Stock</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex space-x-2">
+                                    <button class="btn-secondary btn-sm">Edit</button>
+                                    <button class="btn-danger btn-sm">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/product-management.js"></script>
+
+    <!-- Scripts -->
+    <script src="/js/logout.js"></script>
+</body>
+</html>

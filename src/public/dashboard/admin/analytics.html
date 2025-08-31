@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অ্যানালিটিক্স - KrishiGhor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-50 font-['Inter']">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/dashboard/admin.html" class="flex items-center space-x-3">
+                        <img src="/assets/logo.png" alt="KrishiGhor Logo" class="h-10 w-auto">
+                        <span class="text-xl font-bold text-slate-900">KrishiGhor</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                <span class="text-purple-600 font-semibold text-sm">অ</span>
+                            </div>
+                            <span class="font-medium">অ্যাডমিন</span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">অ্যানালিটিক্স</h1>
+            <p class="text-slate-600 mt-2">আপনার ব্যবসার বিস্তারিত বিশ্লেষণ এবং রিপোর্ট</p>
+        </div>
+
+        <!-- Analytics Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-sm font-medium text-slate-600">মাসিক বৃদ্ধি</h3>
+                        <div class="text-2xl font-bold text-emerald-600">+12.5%</div>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-line text-emerald-600"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">গত মাসের তুলনায়</p>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-sm font-medium text-slate-600">সক্রিয় ব্যবহারকারী</h3>
+                        <div class="text-2xl font-bold text-blue-600">1,847</div>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-users text-blue-600"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">এই মাসে</p>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-sm font-medium text-slate-600">রূপান্তর হার</h3>
+                        <div class="text-2xl font-bold text-purple-600">8.3%</div>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-exchange-alt text-purple-600"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">দর্শক থেকে ক্রেতা</p>
+            </div>
+            
+            <div class="card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-sm font-medium text-slate-600">মোট আয়</h3>
+                        <div class="text-2xl font-bold text-orange-600">৳2.4M</div>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-taka-sign text-orange-600"></i>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">এই মাসে</p>
+            </div>
+        </div>
+
+        <!-- Main Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Growth Trend Chart -->
+            <div class="card">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-slate-800">ব্যবহারকারী বৃদ্ধি ট্রেন্ড</h3>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 text-xs bg-emerald-100 text-emerald-700 rounded-full">মাসিক</button>
+                        <button class="px-3 py-1 text-xs bg-slate-100 text-slate-600 rounded-full">বার্ষিক</button>
+                    </div>
+                </div>
+                <div class="relative" style="height: 300px;">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Market Performance Chart -->
+            <div class="card">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-slate-800">বাজার কর্মক্ষমতা</h3>
+                    <div class="flex items-center space-x-2 text-sm text-slate-600">
+                        <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                        <span>সবজি</span>
+                        <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
+                        <span>শস্য</span>
+                    </div>
+                </div>
+                <div class="relative" style="height: 300px;">
+                    <canvas id="marketChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Revenue Breakdown -->
+            <div class="card">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4">আয়ের বিভাজন</h3>
+                <div class="relative" style="height: 250px;">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Regional Performance -->
+            <div class="card">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4">আঞ্চলিক কর্মক্ষমতা</h3>
+                <div class="relative" style="height: 250px;">
+                    <canvas id="regionalChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Product Categories -->
+            <div class="card">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4">পণ্য বিভাগ</h3>
+                <div class="relative" style="height: 250px;">
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Reports -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="card">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4">শীর্ষ পণ্য</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-gradient-to-r from-emerald-50 to-emerald-100 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-seedling text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">বাসমতি চাল</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-slate-900">৳12,450</div>
+                            <div class="text-xs text-emerald-600">+15.2%</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-carrot text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">টমেটো</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-slate-900">৳8,920</div>
+                            <div class="text-xs text-blue-600">+8.7%</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-apple-alt text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">আলু</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-slate-900">৳6,750</div>
+                            <div class="text-xs text-purple-600">+12.1%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="text-lg font-semibold text-slate-800 mb-4">শীর্ষ অঞ্চল</h3>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">ঢাকা</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-slate-900">৳25,680</div>
+                            <div class="text-xs text-orange-600">+22.5%</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gradient-to-r from-teal-50 to-teal-100 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">চট্টগ্রাম</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-slate-900">৳18,450</div>
+                            <div class="text-xs text-teal-600">+18.3%</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-white text-sm"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700">সিলেট</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-bold text-slate-900">৳15,320</div>
+                            <div class="text-xs text-indigo-600">+14.7%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/i18n.js"></script>
+    <script src="/js/forms.js"></script>
+    <script src="/js/logout.js"></script>
+    <script>
+        // Initialize i18n
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof I18n !== 'undefined') {
+                I18n.init();
+            }
+            
+            // Initialize charts
+            if (typeof Chart !== 'undefined') {
+                // Growth Trend Chart
+                const growthCtx = document.getElementById('growthChart');
+                if (growthCtx) {
+                    new Chart(growthCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['জানু', 'ফেব', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট'],
+                            datasets: [{
+                                label: 'নতুন ব্যবহারকারী',
+                                data: [120, 190, 280, 390, 520, 680, 750, 890],
+                                borderColor: '#7c3aed',
+                                backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                pointBackgroundColor: '#7c3aed',
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 2,
+                                pointRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: {
+                                        color: 'rgba(0, 0, 0, 0.05)'
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            },
+                            elements: {
+                                point: {
+                                    hoverRadius: 8
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Market Performance Chart
+                const marketCtx = document.getElementById('marketChart');
+                if (marketCtx) {
+                    new Chart(marketCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['জানু', 'ফেব', 'মার্চ', 'এপ্রিল', 'মে', 'জুন'],
+                            datasets: [{
+                                label: 'সবজি',
+                                data: [65, 78, 90, 85, 95, 110],
+                                backgroundColor: '#10b981',
+                                borderRadius: 6
+                            }, {
+                                label: 'শস্য',
+                                data: [45, 52, 68, 72, 80, 85],
+                                backgroundColor: '#3b82f6',
+                                borderRadius: 6
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: {
+                                        color: 'rgba(0, 0, 0, 0.05)'
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Revenue Breakdown Chart
+                const revenueCtx = document.getElementById('revenueChart');
+                if (revenueCtx) {
+                    new Chart(revenueCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['শস্য', 'সবজি', 'ফল', 'দুগ্ধজাত'],
+                            datasets: [{
+                                data: [45, 25, 20, 10],
+                                backgroundColor: [
+                                    '#10b981',
+                                    '#3b82f6',
+                                    '#f59e0b',
+                                    '#ef4444'
+                                ],
+                                borderWidth: 0,
+                                borderRadius: 8
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 20,
+                                        usePointStyle: true,
+                                        pointStyle: 'circle'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Regional Performance Chart
+                const regionalCtx = document.getElementById('regionalChart');
+                if (regionalCtx) {
+                    new Chart(regionalCtx, {
+                        type: 'radar',
+                        data: {
+                            labels: ['ঢাকা', 'চট্টগ্রাম', 'সিলেট', 'রাজশাহী', 'খুলনা', 'বরিশাল'],
+                            datasets: [{
+                                label: 'কর্মক্ষমতা স্কোর',
+                                data: [95, 87, 78, 82, 75, 68],
+                                backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                                borderColor: '#3b82f6',
+                                borderWidth: 2,
+                                pointBackgroundColor: '#3b82f6',
+                                pointBorderColor: '#ffffff',
+                                pointBorderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                r: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                    grid: {
+                                        color: 'rgba(0, 0, 0, 0.05)'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                // Product Categories Chart
+                const categoryCtx = document.getElementById('categoryChart');
+                if (categoryCtx) {
+                    new Chart(categoryCtx, {
+                        type: 'polarArea',
+                        data: {
+                            labels: ['শস্য', 'সবজি', 'ফল', 'মসলা', 'ফুল'],
+                            datasets: [{
+                                data: [300, 250, 180, 120, 80],
+                                backgroundColor: [
+                                    'rgba(16, 185, 129, 0.8)',
+                                    'rgba(59, 130, 246, 0.8)',
+                                    'rgba(245, 158, 11, 0.8)',
+                                    'rgba(239, 68, 68, 0.8)',
+                                    'rgba(168, 85, 247, 0.8)'
+                                ],
+                                borderWidth: 2,
+                                borderColor: '#ffffff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 15,
+                                        usePointStyle: true
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

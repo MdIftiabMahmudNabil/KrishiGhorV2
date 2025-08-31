@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer Dashboard - KrishiGhor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --ring: rgba(16, 185, 129, 0.35);
+        }
+        body {
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial;
+        }
+        .glass {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .card {
+            box-shadow: 0 10px 25px rgba(2, 6, 23, 0.06);
+        }
+        .shadow-soft {
+            box-shadow: 0 8px 20px rgba(2, 6, 23, 0.08);
+        }
+        .ring-primary {
+            box-shadow: 0 0 0 6px var(--ring);
+        }
+        .sidebar-active {
+            background: linear-gradient(135deg, #059669, #0284c7);
+            color: white;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(2, 6, 23, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 glass border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center">
+                            <img src="/assets/logo.png" alt="KrishiGhor Logo" class="h-10 w-auto mr-3">
+                            <span class="text-xl font-extrabold text-slate-900">KrishiGhor</span>
+                        </div>
+                        <div class="ml-6 border-l border-slate-300 pl-6">
+                            <span class="text-sm text-slate-500" data-i18n="dashboard.buyer_panel">ক্রেতা প্যানেল</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search Bar -->
+                    <div class="relative hidden md:block">
+                        <input type="text" id="globalSearch" placeholder="পণ্য খুঁজুন..." 
+                               class="w-80 pl-10 pr-4 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-slate-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button class="p-2 text-slate-600 hover:text-slate-900 relative rounded-xl hover:bg-slate-50">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="absolute -top-1 -right-1 bg-sky-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">2</span>
+                        </button>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <select id="languageSelect" class="text-sm border-slate-300 rounded-xl px-3 py-2 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <option value="bn">বাংলা</option>
+                        <option value="en">English</option>
+                    </select>
+
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button id="profileDropdown" class="flex items-center space-x-2 text-slate-700 hover:text-slate-900 rounded-xl px-3 py-2 hover:bg-slate-50">
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Profile">
+                            <span class="text-sm font-medium" data-i18n="user.name">মোহাম্মদ করিম</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex h-screen bg-slate-50 fade-in">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-soft border-r border-slate-200">
+            <div class="p-6">
+                <nav class="space-y-2">
+                    <a href="/dashboard/buyer.html" class="sidebar-link active flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-sky-50 transition-all duration-200">
+                        <i class="fas fa-home"></i>
+                        <span data-i18n="buyer.dashboard">ড্যাশবোর্ড</span>
+                    </a>
+                    <a href="/dashboard/buyer/browse.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-sky-50 transition-all duration-200">
+                        <i class="fas fa-search"></i>
+                        <span data-i18n="buyer.browse_products">পণ্য ব্রাউজ করুন</span>
+                    </a>
+                    <a href="/dashboard/buyer/orders.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-sky-50 transition-all duration-200">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span data-i18n="buyer.my_orders">আমার অর্ডার</span>
+                    </a>
+                    <a href="/dashboard/buyer/deliveries.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-sky-50 transition-all duration-200">
+                        <i class="fas fa-truck"></i>
+                        <span data-i18n="buyer.deliveries">ডেলিভারি ট্র্যাকিং</span>
+                    </a>
+                    <a href="/dashboard/buyer/wishlist.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-sky-50 transition-all duration-200">
+                        <i class="fas fa-heart"></i>
+                        <span data-i18n="buyer.wishlist">পছন্দের তালিকা</span>
+                    </a>
+                    <a href="/dashboard/buyer/prices.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-sky-50 transition-all duration-200">
+                        <i class="fas fa-chart-bar"></i>
+                        <span data-i18n="buyer.market_prices">বাজার দর</span>
+                    </a>
+                    <a href="/dashboard/buyer/suppliers.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-sky-50 transition-all duration-200">
+                        <i class="fas fa-users"></i>
+                        <span data-i18n="buyer.suppliers">সরবরাহকারী</span>
+                    </a>
+                </nav>
+                
+                <!-- Quick Actions -->
+                <div class="mt-8 p-4 bg-gradient-to-br from-sky-50 to-emerald-50 rounded-2xl border border-sky-100">
+                    <h3 class="text-sm font-semibold text-sky-800 mb-3" data-i18n="buyer.quickActions">দ্রুত কার্যক্রম</h3>
+                    <div class="space-y-2">
+                        <button class="w-full text-left text-sm text-sky-700 hover:text-sky-900 p-2 rounded-xl hover:bg-sky-100 transition-colors">
+                            <i class="fas fa-search mr-2"></i>
+                            <span data-i18n="buyer.findProducts">পণ্য খুঁজুন</span>
+                        </button>
+                        <button class="w-full text-left text-sm text-sky-700 hover:text-sky-900 p-2 rounded-xl hover:bg-sky-100 transition-colors">
+                            <i class="fas fa-shopping-cart mr-2"></i>
+                            <span data-i18n="buyer.viewCart">কার্ট দেখুন</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Dashboard Section -->
+            <div id="dashboardSection" class="content-section p-8">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-extrabold text-slate-900" data-i18n="buyer.welcome">স্বাগতম, মোহাম্মদ করিম!</h1>
+                    <p class="text-slate-600 mt-2" data-i18n="buyer.overview">সেরা কৃষি পণ্য খুঁজুন এবং সরাসরি কৃষকদের থেকে কিনুন</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-sky-50 text-sky-600">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.totalOrders">মোট অর্ডার</p>
+                                <p class="text-2xl font-bold text-slate-900">24</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-emerald-50 text-emerald-600">
+                                <i class="fas fa-truck text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.pendingDeliveries">ডেলিভারি অপেক্ষমাণ</p>
+                                <p class="text-2xl font-bold text-slate-900">5</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-yellow-50 text-yellow-600">
+                                <i class="fas fa-coins text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.totalSpent">মোট ব্যয়</p>
+                                <p class="text-2xl font-bold text-slate-900">৳32,450</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-purple-50 text-purple-600">
+                                <i class="fas fa-heart text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.savedProducts">সংরক্ষিত পণ্য</p>
+                                <p class="text-2xl font-bold text-slate-900">12</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities & Market Trends -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Recent Orders -->
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4" data-i18n="recent.orders">সাম্প্রতিক অর্ডার</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+                                <div>
+                                    <p class="font-medium text-slate-900">ধান - ১০০ কেজি</p>
+                                    <p class="text-sm text-slate-600">করিম ফার্ম</p>
+                                </div>
+                                <span class="px-3 py-1 text-xs font-medium bg-emerald-100 text-emerald-800 rounded-full">ডেলিভার হয়েছে</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+                                <div>
+                                    <p class="font-medium text-slate-900">আলু - ২৫ কেজি</p>
+                                    <p class="text-sm text-slate-600">রহিম এগ্রো</p>
+                                </div>
+                                <span class="px-3 py-1 text-xs font-medium bg-sky-100 text-sky-800 rounded-full">পরিবহনে</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Market Trends -->
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4" data-i18n="charts.market">বাজার প্রবণতা</h3>
+                        <canvas id="marketChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Browse Products Section -->
+            <div id="browseSection" class="content-section hidden p-8">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-slate-900" data-i18n="buyer.browse_products">পণ্য ব্রাউজ করুন</h2>
+                    <p class="text-slate-600 mt-1" data-i18n="browse.subtitle">সেরা মানের কৃষি পণ্য খুঁজুন এবং সরাসরি কৃষকদের থেকে কিনুন</p>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="card bg-white rounded-2xl p-6 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">পণ্যের নাম</label>
+                            <input type="text" id="productSearch" placeholder="যেমন: ধান, আলু, টমেটো" 
+                                   class="w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">বিভাগ</label>
+                            <select id="categoryFilter" class="w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                                <option value="">সব বিভাগ</option>
+                                <option value="grains">শস্য</option>
+                                <option value="vegetables">সবজি</option>
+                                <option value="fruits">ফল</option>
+                                <option value="spices">মসলা</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">অঞ্চল</label>
+                            <select id="regionFilter" class="w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                                <option value="">সব অঞ্চল</option>
+                                <option value="dhaka">ঢাকা</option>
+                                <option value="chittagong">চট্টগ্রাম</option>
+                                <option value="rajshahi">রাজশাহী</option>
+                                <option value="khulna">খুলনা</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">মূল্য সীমা</label>
+                            <select id="priceFilter" class="w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                                <option value="">সব দাম</option>
+                                <option value="0-50">৳০-৫০</option>
+                                <option value="50-100">৳৫০-১০০</option>
+                                <option value="100+">৳১০০+</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Products will be loaded here -->
+                    <div class="text-center py-12 col-span-full">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+                        <p class="mt-2 text-slate-600">পণ্য লোড হচ্ছে...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div id="ordersSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="buyer.my_orders">আমার অর্ডার</h2>
+                
+                <!-- Order Filters -->
+                <div class="card bg-white rounded-2xl p-4 mb-6">
+                    <div class="flex flex-wrap gap-4">
+                        <select id="orderStatusFilter" class="border border-slate-300 rounded-xl px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <option value="">সব স্ট্যাটাস</option>
+                            <option value="pending">অপেক্ষমাণ</option>
+                            <option value="confirmed">নিশ্চিত</option>
+                            <option value="processing">প্রস্তুতি</option>
+                            <option value="shipped">পাঠানো হয়েছে</option>
+                            <option value="delivered">ডেলিভার হয়েছে</option>
+                            <option value="cancelled">বাতিল</option>
+                        </select>
+                        <input type="date" class="border border-slate-300 rounded-xl px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                        <button id="refreshOrdersBtn" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-xl">
+                            <i class="fas fa-sync-alt mr-2"></i>
+                            রিফ্রেশ
+                        </button>
+                    </div>
+                </div>
+                <!-- Orders Table -->
+                <div class="card bg-white rounded-2xl shadow overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">অর্ডার ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">পণ্য</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">কৃষক</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">পরিমাণ</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">মূল্য</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">স্ট্যাটাস</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">তারিখ</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">কার্যক্রম</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-slate-200" id="ordersTableBody">
+                                <!-- Order data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deliveries Section -->
+            <div id="deliveriesSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="buyer.delivery_tracking">ডেলিভারি ট্র্যাকিং</h2>
+                
+                <!-- Delivery Filters -->
+                <div class="card bg-white rounded-2xl p-4 mb-6">
+                    <div class="flex flex-wrap gap-4">
+                        <select id="deliveryStatusFilter" class="border border-slate-300 rounded-xl px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <option value="">সব স্ট্যাটাস</option>
+                            <option value="assigned">বরাদ্দকৃত</option>
+                            <option value="pickup_pending">পিকআপ অপেক্ষমাণ</option>
+                            <option value="in_transit">পরিবহনে</option>
+                            <option value="delivered">ডেলিভার হয়েছে</option>
+                        </select>
+                        <button id="refreshDeliveriesBtn" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-xl">
+                            <i class="fas fa-sync-alt mr-2"></i>
+                            রিফ্রেশ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Active Deliveries -->
+                <div id="activeDeliveriesContainer" class="space-y-4 mb-6">
+                    <!-- Active delivery cards will be loaded here -->
+                    <div class="text-center py-8">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-sky-600"></div>
+                        <p class="mt-2 text-slate-600">ডেলিভারি তথ্য লোড হচ্ছে...</p>
+                    </div>
+                </div>
+
+                <!-- Delivery History -->
+                <div class="card bg-white rounded-2xl shadow">
+                    <div class="px-6 py-4 border-b border-slate-200">
+                        <h3 class="text-lg font-semibold text-slate-900">ডেলিভারি ইতিহাস</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-slate-200">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">অর্ডার</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">পণ্য</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">ডেলিভারি তারিখ</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">স্ট্যাটাস</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">রেটিং</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">কার্যক্রম</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-slate-200" id="deliveryHistoryTableBody">
+                                <!-- Delivery history will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Section -->
+            <div id="wishlistSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="buyer.wishlist">পছন্দের তালিকা</h2>
+                
+                <!-- Wishlist Grid -->
+                <div id="wishlistGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Wishlist products will be loaded here -->
+                    <div class="text-center py-12 col-span-full">
+                        <i class="fas fa-heart text-4xl text-slate-300 mb-4"></i>
+                        <p class="text-slate-500">আপনার পছন্দের তালিকা খালি</p>
+                        <button class="mt-4 bg-emerald-600 text-white px-6 py-2 rounded-xl hover:bg-emerald-700">
+                            পণ্য খুঁজুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Prices Section -->
+            <div id="pricesSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="buyer.market_prices">বাজার দর</h2>
+                
+                <!-- Price Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4">দৈনিক মূল্য প্রবণতা</h3>
+                        <canvas id="dailyPriceChart" width="400" height="300"></canvas>
+                    </div>
+                    
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4">অঞ্চলভিত্তিক তুলনা</h3>
+                        <canvas id="regionalPriceChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suppliers Section -->
+            <div id="suppliersSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="buyer.suppliers">সরবরাহকারী</h2>
+                
+                <!-- Suppliers Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="suppliersGrid">
+                    <!-- Suppliers will be loaded here -->
+                    <div class="text-center py-12 col-span-full">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+                        <p class="mt-2 text-slate-600">সরবরাহকারী তথ্য লোড হচ্ছে...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="productModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-8 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div id="productModalContent">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/i18n.js"></script>
+    <script src="/js/forms.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/charts.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/order-management.js"></script>
+    <script src="/js/buyer-delivery-tracking.js"></script>
+    <script src="/js/dashboard-navigation.js"></script>
+    <script src="/js/logout.js"></script>
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize i18n
+            I18n.init();
+            
+            // Initialize charts
+            if (typeof Chart !== 'undefined') {
+                // Market Chart
+                const marketCtx = document.getElementById('marketChart');
+                if (marketCtx) {
+                    new Chart(marketCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['জানু', 'ফেব', 'মার্চ', 'এপ্রিল', 'মে', 'জুন'],
+                            datasets: [{
+                                label: 'গড় মূল্য (৳)',
+                                data: [45, 52, 48, 61, 55, 67],
+                                borderColor: '#0284c7',
+                                backgroundColor: 'rgba(2, 132, 199, 0.1)',
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            
+            // Global search functionality
+            const globalSearch = document.getElementById('globalSearch');
+            if (globalSearch) {
+                globalSearch.addEventListener('input', function() {
+                    // Implement search functionality
+                    console.log('Searching for:', this.value);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

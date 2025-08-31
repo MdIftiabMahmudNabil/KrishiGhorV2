@@ -1,0 +1,41 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+DEPLOYMENT.md
+POSTGRESQL_SETUP.md
+SETUP.md
+
+# Development files
+tests/
+*.log
+*.sql
+*.md
+
+# Environment files (will be copied from env.php)
+.env
+.env.*
+
+# Node modules (will be installed fresh)
+node_modules/
+npm-debug.log*
+
+# Composer
+vendor/
+composer.lock
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp

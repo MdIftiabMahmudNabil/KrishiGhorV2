@@ -1,0 +1,46 @@
+{
+    "name": "krishighor/digital-agriculture-platform",
+    "description": "Digital Agricultural Cooperation Platform - KrishiGhor",
+    "type": "project",
+    "keywords": ["agriculture", "farmers", "digital-platform", "postgresql", "php"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KrishiGhor Team",
+            "email": "admin@krishighor.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "ext-pdo": "*",
+        "ext-pdo_pgsql": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
+        ]
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php -r \"if (file_exists('src/config/env.php')) { copy('src/config/env.php', 'src/config/env.production.php'); }\""
+        ],
+        "test": "phpunit"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

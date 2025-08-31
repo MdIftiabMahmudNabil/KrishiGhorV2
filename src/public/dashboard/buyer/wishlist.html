@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist - Buyer Dashboard | KrishiGhor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body class="bg-gradient-to-br from-sky-50 via-white to-emerald-50 min-h-screen font-['Inter']">
+    <!-- Navigation Header -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-sky-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="/dashboard/buyer.html" class="text-2xl font-bold text-sky-600">KrishiGhor</a>
+                    <span class="text-slate-600">Buyer Dashboard</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/dashboard/buyer.html" class="text-sky-600 hover:text-sky-700 font-medium">← Back to Dashboard</a>
+                    <a href="/login.html" class="text-slate-600 hover:text-slate-800 font-medium">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800 mb-2">My Wishlist</h1>
+            <p class="text-slate-600">Save products you're interested in and get notified about price changes</p>
+        </div>
+
+        <!-- Wishlist Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-sky-600 mb-2">8</div>
+                    <div class="text-slate-600">Total Items</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-emerald-600 mb-2">3</div>
+                    <div class="text-slate-600">Price Drops</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">৳15,200</div>
+                    <div class="text-slate-600">Total Value</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wishlist Actions -->
+        <div class="card mb-8">
+            <div class="flex justify-between items-center">
+                <div class="flex space-x-3">
+                    <button class="btn-primary">Add All to Cart</button>
+                    <button class="btn-secondary">Clear Wishlist</button>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-slate-600">Sort by:</span>
+                    <select class="form-select">
+                        <option>Date Added</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Name: A to Z</option>
+                        <option>Name: Z to A</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wishlist Items -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Wishlist Item 1 -->
+            <div class="card hover:shadow-lg transition-shadow">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=250&fit=crop&crop=center" alt="Basmati Rice" class="w-full h-48 object-cover rounded-t-xl">
+                    <div class="absolute top-3 right-3">
+                        <span class="status-badge status-premium">Premium</span>
+                    </div>
+                    <button class="absolute top-3 left-3 w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-slate-800 mb-2">Premium Basmati Rice</h3>
+                    <p class="text-slate-600 text-sm mb-3">Aromatic long-grain rice with exceptional taste and texture</p>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-2xl font-bold text-sky-600">৳120/kg</span>
+                            <span class="text-sm text-emerald-600 ml-2">↓ ৳10</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-yellow-400">★</span>
+                            <span class="text-slate-600">4.8 (24)</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                        <span>Stock: 150 kg</span>
+                        <span>📍 Rajshahi</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="btn-primary flex-1">Add to Cart</button>
+                        <button class="btn-secondary">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Item 2 -->
+            <div class="card hover:shadow-lg transition-shadow">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=400&h=250&fit=crop&crop=center" alt="Fresh Tomatoes" class="w-full h-48 object-cover rounded-t-xl">
+                    <div class="absolute top-3 right-3">
+                        <span class="status-badge status-organic">Organic</span>
+                    </div>
+                    <button class="absolute top-3 left-3 w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-slate-800 mb-2">Fresh Organic Tomatoes</h3>
+                    <p class="text-slate-600 text-sm mb-3">Pesticide-free tomatoes grown with natural farming methods</p>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-2xl font-bold text-sky-600">৳80/kg</span>
+                            <span class="text-sm text-emerald-600 ml-2">↓ ৳5</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-yellow-400">★</span>
+                            <span class="text-slate-600">4.6 (18)</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                        <span>Stock: 75 kg</span>
+                        <span>📍 Sylhet</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="btn-primary flex-1">Add to Cart</button>
+                        <button class="btn-secondary">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Item 3 -->
+            <div class="card hover:shadow-lg transition-shadow">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1550254478-ead40cc54513?w=400&h=250&fit=crop&crop=center" alt="Himsagar Mangoes" class="w-full h-48 object-cover rounded-t-xl">
+                    <div class="absolute top-3 right-3">
+                        <span class="status-badge status-seasonal">Seasonal</span>
+                    </div>
+                    <button class="absolute top-3 left-3 w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-slate-800 mb-2">Himsagar Mangoes</h3>
+                    <p class="text-slate-600 text-sm mb-3">Sweet and juicy seasonal mangoes from the finest orchards</p>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-2xl font-bold text-sky-600">৳200/kg</span>
+                            <span class="text-sm text-emerald-600 ml-2">↓ ৳15</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-yellow-400">★</span>
+                            <span class="text-slate-600">4.9 (31)</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                        <span>Stock: 25 kg</span>
+                        <span>📍 Chapainawabganj</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="btn-primary flex-1">Add to Cart</button>
+                        <button class="btn-secondary">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Item 4 -->
+            <div class="card hover:shadow-lg transition-shadow">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=250&fit=crop&crop=center" alt="Organic Potatoes" class="w-full h-48 object-cover rounded-t-xl">
+                    <div class="absolute top-3 right-3">
+                        <span class="status-badge status-organic">Organic</span>
+                    </div>
+                    <button class="absolute top-3 left-3 w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-slate-800 mb-2">Organic Potatoes</h3>
+                    <p class="text-slate-600 text-sm mb-3">Fresh organic potatoes grown without synthetic pesticides</p>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-2xl font-bold text-sky-600">৳40/kg</span>
+                            <span class="text-sm text-emerald-600 ml-2">↓ ৳8</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-yellow-400">★</span>
+                            <span class="text-slate-600">4.7 (22)</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                        <span>Stock: 100 kg</span>
+                        <span>📍 Rangpur</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="btn-primary flex-1">Add to Cart</button>
+                        <button class="btn-secondary">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Item 5 -->
+            <div class="card hover:shadow-lg transition-shadow">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=250&fit=crop&crop=center" alt="Jasmine Rice" class="w-full h-48 object-cover rounded-t-xl">
+                    <div class="absolute top-3 right-3">
+                        <span class="status-badge status-premium">Premium</span>
+                    </div>
+                    <button class="absolute top-3 left-3 w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-slate-800 mb-2">Jasmine Rice</h3>
+                    <p class="text-slate-600 text-sm mb-3">Fragrant jasmine rice with a subtle floral aroma</p>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-2xl font-bold text-sky-600">৳110/kg</span>
+                            <span class="text-sm text-emerald-600 ml-2">↓ ৳12</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-yellow-400">★</span>
+                            <span class="text-slate-600">4.5 (19)</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                        <span>Stock: 80 kg</span>
+                        <span>📍 Khulna</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="btn-primary flex-1">Add to Cart</button>
+                        <button class="btn-secondary">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Item 6 -->
+            <div class="card hover:shadow-lg transition-shadow">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=400&h=250&fit=crop&crop=center" alt="Cherry Tomatoes" class="w-full h-48 object-cover rounded-t-xl">
+                    <div class="absolute top-3 right-3">
+                        <span class="status-badge status-organic">Organic</span>
+                    </div>
+                    <button class="absolute top-3 left-3 w-8 h-8 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-semibold text-slate-800 mb-2">Cherry Tomatoes</h3>
+                    <p class="text-slate-600 text-sm mb-3">Sweet cherry tomatoes perfect for salads and snacking</p>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <span class="text-2xl font-bold text-sky-600">৳90/kg</span>
+                            <span class="text-sm text-emerald-600 ml-2">↓ ৳7</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-yellow-400">★</span>
+                            <span class="text-slate-600">4.4 (16)</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                        <span>Stock: 45 kg</span>
+                        <span>📍 Barisal</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="btn-primary flex-1">Add to Cart</button>
+                        <button class="btn-secondary">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Price Drop Notifications -->
+        <div class="card mt-8">
+            <h2 class="text-xl font-semibold text-slate-800 mb-6">Price Drop Notifications</h2>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-medium text-emerald-800">Basmati Rice price dropped!</div>
+                            <div class="text-sm text-emerald-700">From ৳130/kg to ৳120/kg (7.7% off)</div>
+                        </div>
+                    </div>
+                    <button class="btn-primary btn-sm">View Product</button>
+                </div>
+                <div class="flex items-center justify-between p-4 bg-sky-50 border border-sky-200 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-sky-100 rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-medium text-sky-800">Fresh Tomatoes price dropped!</div>
+                            <div class="text-sm text-sky-700">From ৳85/kg to ৳80/kg (5.9% off)</div>
+                        </div>
+                    </div>
+                    <button class="btn-primary btn-sm">View Product</button>
+                </div>
+                <div class="flex items-center justify-between p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-medium text-purple-800">Himsagar Mangoes price dropped!</div>
+                            <div class="text-sm text-purple-700">From ৳215/kg to ৳200/kg (7.0% off)</div>
+                        </div>
+                    </div>
+                    <button class="btn-primary btn-sm">View Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/logout.js"></script>
+</body>
+</html>
