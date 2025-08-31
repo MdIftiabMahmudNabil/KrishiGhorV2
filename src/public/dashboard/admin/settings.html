@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সেটিংস - KrishiGhor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-['Inter']">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/dashboard/admin.html" class="flex items-center space-x-3">
+                        <img src="/assets/logo.png" alt="KrishiGhor Logo" class="h-10 w-auto">
+                        <span class="text-xl font-bold text-slate-900">KrishiGhor</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                <span class="text-purple-600 font-semibold text-sm">অ</span>
+                            </div>
+                            <span class="font-medium">অ্যাডমিন</span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">সেটিংস</h1>
+            <p class="text-slate-600 mt-2">সিস্টেম কনফিগারেশন এবং সাধারণ সেটিংস</p>
+        </div>
+
+        <!-- General Settings -->
+        <div class="card mb-6">
+            <h3 class="text-lg font-semibold text-slate-800 mb-4">সাধারণ সেটিংস</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">সাইটের নাম</label>
+                    <input type="text" value="KrishiGhor" class="form-input w-full">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">সাইটের বিবরণ</label>
+                    <textarea class="form-textarea w-full" rows="3">ডিজিটাল কৃষি সহযোগিতা প্ল্যাটফর্ম</textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">ডিফল্ট ভাষা</label>
+                    <select class="form-select">
+                        <option value="bn">বাংলা</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="card mb-6">
+            <h3 class="text-lg font-semibold text-slate-700 mb-4">বিজ্ঞপ্তি সেটিংস</h3>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">ইমেইল বিজ্ঞপ্তি</label>
+                        <p class="text-sm text-slate-500">নতুন অর্ডার এবং গুরুত্বপূর্ণ আপডেট সম্পর্কে ইমেইল পান</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">এসএমএস বিজ্ঞপ্তি</label>
+                        <p class="text-sm text-slate-500">জরুরি বিজ্ঞপ্তি সম্পর্কে এসএমএস পান</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Settings -->
+        <div class="card mb-6">
+            <h3 class="text-lg font-semibold text-slate-800 mb-4">নিরাপত্তা সেটিংস</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">সেশন টাইমআউট</label>
+                    <select class="form-select">
+                        <option value="30">30 মিনিট</option>
+                        <option value="60" selected>1 ঘন্টা</option>
+                        <option value="120">2 ঘন্টা</option>
+                        <option value="240">4 ঘন্টা</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">পাসওয়ার্ড নীতি</label>
+                    <select class="form-select">
+                        <option value="low">কম (8 অক্ষর)</option>
+                        <option value="medium" selected>মাঝারি (10 অক্ষর + সংখ্যা)</option>
+                        <option value="high">উচ্চ (12 অক্ষর + সংখ্যা + বিশেষ অক্ষর)</option>
+                    </select>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">দুই-ফ্যাক্টর প্রমাণীকরণ</label>
+                        <p class="text-sm text-slate-500">অতিরিক্ত নিরাপত্তার জন্য 2FA সক্রিয় করুন</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="flex justify-end">
+            <button class="btn-primary">
+                <i class="fas fa-save mr-2"></i>
+                সেটিংস সংরক্ষণ করুন
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/i18n.js"></script>
+    <script src="/js/forms.js"></script>
+    <script src="/js/logout.js"></script>
+    <script>
+        // Initialize i18n
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof I18n !== 'undefined') {
+                I18n.init();
+            }
+        });
+    </script>
+</body>
+</html>

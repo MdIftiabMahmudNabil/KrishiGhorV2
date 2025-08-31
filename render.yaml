@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: krishighor
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: DB_HOST
+        value: db.moozvhfbkhbepmjadijj.supabase.co
+      - key: DB_PORT
+        value: 5432
+      - key: DB_NAME
+        value: postgres
+      - key: DB_USER
+        value: postgres
+      - key: DB_PASSWORD
+        value: system307projectG7
+      - key: DB_SSL_MODE
+        value: require
+      - key: APP_NAME
+        value: KrishiGhor
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_TIMEZONE
+        value: Asia/Dhaka
+      - key: JWT_SECRET
+        value: krishighor-super-secret-jwt-key-2025-production
+      - key: ENCRYPTION_KEY
+        value: krishighor-32-char-key-2025-production

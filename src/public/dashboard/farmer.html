@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Dashboard - KrishiGhor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --ring: rgba(16, 185, 129, 0.35);
+        }
+        body {
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial;
+        }
+        .glass {
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .card {
+            box-shadow: 0 10px 25px rgba(2, 6, 23, 0.06);
+        }
+        .shadow-soft {
+            box-shadow: 0 8px 20px rgba(2, 6, 23, 0.08);
+        }
+        .ring-primary {
+            box-shadow: 0 0 0 6px var(--ring);
+        }
+        .sidebar-active {
+            background: linear-gradient(135deg, #059669, #0284c7);
+            color: white;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(2, 6, 23, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 glass border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 flex items-center">
+                            <img src="/assets/logo.png" alt="KrishiGhor Logo" class="h-10 w-auto mr-3">
+                            <span class="text-xl font-extrabold text-slate-900">KrishiGhor</span>
+                        </div>
+                        <div class="ml-6 border-l border-slate-300 pl-6">
+                            <span class="text-sm text-slate-500" data-i18n="dashboard.farmer_panel">কৃষক প্যানেল</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button class="p-2 text-slate-600 hover:text-slate-900 relative rounded-xl hover:bg-slate-50">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                        </button>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <select id="languageSelect" class="text-sm border-slate-300 rounded-xl px-3 py-2 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <option value="bn">বাংলা</option>
+                        <option value="en">English</option>
+                    </select>
+
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button id="profileDropdown" class="flex items-center space-x-2 text-slate-700 hover:text-slate-900 rounded-xl px-3 py-2 hover:bg-slate-50">
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Profile">
+                            <span class="text-sm font-medium" data-i18n="user.name">আবদুর রহিম</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex h-screen bg-slate-50 fade-in">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-soft border-r border-slate-200">
+            <div class="p-6">
+                <nav class="space-y-2">
+                    <a href="/dashboard/farmer.html" class="sidebar-link active flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-emerald-50 transition-all duration-200">
+                        <i class="fas fa-home"></i>
+                        <span data-i18n="farmer.dashboard">ড্যাশবোর্ড</span>
+                    </a>
+                    <a href="/dashboard/farmer/products.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-emerald-50 transition-all duration-200">
+                        <i class="fas fa-seedling"></i>
+                        <span data-i18n="farmer.products">পণ্য ব্যবস্থাপনা</span>
+                    </a>
+                    <a href="/dashboard/farmer/orders.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-emerald-50 transition-all duration-200">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span data-i18n="farmer.orders">অর্ডার</span>
+                    </a>
+                    <a href="/dashboard/farmer/pricing.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-emerald-50 transition-all duration-200">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-i18n="farmer.pricing">মূল্য বিশ্লেষণ</span>
+                    </a>
+                    <a href="/dashboard/farmer/transport.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-emerald-50 transition-all duration-200">
+                        <i class="fas fa-truck"></i>
+                        <span data-i18n="farmer.transport">পরিবহন</span>
+                    </a>
+                    <a href="/dashboard/farmer/analytics.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-emerald-50 transition-all duration-200">
+                        <i class="fas fa-chart-bar"></i>
+                        <span data-i18n="farmer.analytics">অ্যানালিটিক্স</span>
+                    </a>
+                    <a href="/dashboard/farmer/profile.html" class="sidebar-link flex items-center space-x-3 text-slate-700 p-3 rounded-xl hover:bg-emerald-50 transition-all duration-200">
+                        <i class="fas fa-user"></i>
+                        <span data-i18n="farmer.profile">প্রোফাইল</span>
+                    </a>
+                </nav>
+                
+                <!-- Quick Actions -->
+                <div class="mt-8 p-4 bg-gradient-to-br from-emerald-50 to-sky-50 rounded-2xl border border-emerald-100">
+                    <h3 class="text-sm font-semibold text-emerald-800 mb-3" data-i18n="farmer.quickActions">দ্রুত কার্যক্রম</h3>
+                    <div class="space-y-2">
+                        <button class="w-full text-left text-sm text-emerald-700 hover:text-emerald-900 p-2 rounded-xl hover:bg-emerald-100 transition-colors">
+                            <i class="fas fa-plus mr-2"></i>
+                            <span data-i18n="farmer.addProduct">নতুন পণ্য</span>
+                        </button>
+                        <button class="w-full text-left text-sm text-emerald-700 hover:text-emerald-900 p-2 rounded-xl hover:bg-emerald-100 transition-colors">
+                            <i class="fas fa-eye mr-2"></i>
+                            <span data-i18n="farmer.viewOrders">অর্ডার দেখুন</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Dashboard Section -->
+            <div id="dashboardSection" class="content-section p-8">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-extrabold text-slate-900" data-i18n="farmer.welcome">স্বাগতম, আবদুর রহিম!</h1>
+                    <p class="text-slate-600 mt-2" data-i18n="farmer.overview">আপনার ফসল ব্যবসার সম্পূর্ণ চিত্র দেখুন</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-emerald-50 text-emerald-600">
+                                <i class="fas fa-seedling text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.totalProducts">মোট পণ্য</p>
+                                <p class="text-2xl font-bold text-slate-900">12</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-sky-50 text-sky-600">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.activeOrders">সক্রিয় অর্ডার</p>
+                                <p class="text-2xl font-bold text-slate-900">8</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-yellow-50 text-yellow-600">
+                                <i class="fas fa-coins text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.totalEarnings">মোট আয়</p>
+                                <p class="text-2xl font-bold text-slate-900">৳45,320</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card bg-white rounded-2xl p-6 card-hover">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-xl bg-purple-50 text-purple-600">
+                                <i class="fas fa-truck text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-sm font-medium text-slate-600" data-i18n="stats.deliveries">ডেলিভারি</p>
+                                <p class="text-2xl font-bold text-slate-900">5</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities & Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Recent Orders -->
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4" data-i18n="recent.orders">সাম্প্রতিক অর্ডার</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+                                <div>
+                                    <p class="font-medium text-slate-900">ধান - ২০ কেজি</p>
+                                    <p class="text-sm text-slate-600">আহমেদ ট্রেডিং</p>
+                                </div>
+                                <span class="px-3 py-1 text-xs font-medium bg-emerald-100 text-emerald-800 rounded-full">নিশ্চিত</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
+                                <div>
+                                    <p class="font-medium text-slate-900">আলু - ৫০ কেজি</p>
+                                    <p class="text-sm text-slate-600">রহিম এগ্রো</p>
+                                </div>
+                                <span class="px-3 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">অপেক্ষমাণ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sales Chart -->
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4" data-i18n="charts.sales">বিক্রয় পরিসংখ্যান</h3>
+                        <canvas id="salesChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div id="productsSection" class="content-section hidden p-8">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900" data-i18n="farmer.products">পণ্য ব্যবস্থাপনা</h2>
+                        <p class="text-slate-600 mt-1" data-i18n="products.subtitle">আপনার কৃষি পণ্য যোগ ও পরিচালনা করুন</p>
+                    </div>
+                    <button id="addProductBtn" class="inline-flex items-center px-6 py-3 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition-colors">
+                        <i class="fas fa-plus mr-2"></i>
+                        <span data-i18n="products.add">নতুন পণ্য যোগ করুন</span>
+                    </button>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div id="ordersSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="farmer.orders">অর্ডার ব্যবস্থাপনা</h2>
+                
+                <!-- Orders will be loaded here -->
+                <div id="ordersContainer" class="space-y-4">
+                    <div class="text-center py-8">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+                        <p class="mt-2 text-slate-600">অর্ডার তথ্য লোড হচ্ছে...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Section -->
+            <div id="pricingSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="farmer.pricing">মূল্য বিশ্লেষণ</h2>
+                
+                <!-- Current Prices -->
+                <div id="currentPricesContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Current prices will be loaded here -->
+                </div>
+
+                <!-- Price Analysis Tabs -->
+                <div class="card bg-white rounded-2xl p-6">
+                    <div class="border-b border-slate-200 mb-6">
+                        <nav class="-mb-px flex space-x-8">
+                            <button class="price-tab active py-2 px-1 border-b-2 border-emerald-500 font-medium text-sm text-emerald-600" data-tab="trends">
+                                মূল্য প্রবণতা
+                            </button>
+                            <button class="price-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 hover:border-slate-300" data-tab="forecast">
+                                পূর্বাভাস
+                            </button>
+                            <button class="price-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 hover:border-slate-300" data-tab="comparison">
+                                অঞ্চল তুলনা
+                            </button>
+                            <button class="price-tab py-2 px-1 border-b-2 border-transparent font-medium text-sm text-slate-500 hover:text-slate-700 hover:border-slate-300" data-tab="wheretosell">
+                                কোথায় বিক্রি করবেন
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div id="trendsTab" class="tab-content">
+                        <canvas id="priceChart" width="800" height="400"></canvas>
+                    </div>
+
+                    <div id="forecastTab" class="tab-content hidden">
+                        <canvas id="forecastChart" width="800" height="400"></canvas>
+                    </div>
+
+                    <div id="comparisonTab" class="tab-content hidden">
+                        <canvas id="comparisonChart" width="800" height="400"></canvas>
+                    </div>
+
+                    <div id="wheretosellTab" class="tab-content hidden">
+                        <div class="max-w-lg">
+                            <h3 class="text-lg font-semibold text-slate-900 mb-4">সেরা বিক্রয়ের জায়গা খুঁজুন</h3>
+                            <form id="whereToSellForm" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700">পণ্য নির্বাচন করুন</label>
+                                    <select class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                                        <option>ধান</option>
+                                        <option>গম</option>
+                                        <option>আলু</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700">পরিমাণ (কেজি)</label>
+                                    <input type="number" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                                </div>
+                                <button type="submit" class="bg-emerald-600 text-white px-6 py-2 rounded-xl hover:bg-emerald-700">
+                                    সুপারিশ দেখুন
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transport Section -->
+            <div id="transportSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="farmer.transport">পরিবহন ব্যবস্থাপনা</h2>
+                
+                <!-- Transport Actions -->
+                <div class="card bg-white rounded-2xl p-6 mb-6">
+                    <div class="flex flex-wrap gap-4">
+                        <button id="requestTransportBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl">
+                            <i class="fas fa-truck mr-2"></i>
+                            পরিবহন অনুরোধ
+                        </button>
+                        <select id="transportStatusFilter" class="border border-slate-300 rounded-xl px-3 py-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <option value="">সব স্ট্যাটাস</option>
+                            <option value="requested">অনুরোধকৃত</option>
+                            <option value="assigned">বরাদ্দকৃত</option>
+                            <option value="pickup_pending">পিকআপ অপেক্ষমাণ</option>
+                            <option value="in_transit">পরিবহনে</option>
+                            <option value="delivered">ডেলিভার হয়েছে</option>
+                        </select>
+                        <button id="refreshTransportBtn" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-xl">
+                            <i class="fas fa-sync-alt mr-2"></i>
+                            রিফ্রেশ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Transport Cards -->
+                <div id="transportContainer" class="space-y-4">
+                    <!-- Transport cards will be loaded here -->
+                    <div class="text-center py-8">
+                        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+                        <p class="mt-2 text-slate-600">পরিবহন তথ্য লোড হচ্ছে...</p>
+                    </div>
+                </div>
+
+                <!-- Transport Analytics -->
+                <div class="mt-8 card bg-white rounded-2xl p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4">পরিবহন বিশ্লেষণ</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-emerald-600" id="totalTransports">0</div>
+                            <div class="text-sm text-slate-600">মোট পরিবহন</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-sky-600" id="onTimeDeliveries">0%</div>
+                            <div class="text-sm text-slate-600">সময়মত ডেলিভারি</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-yellow-600" id="avgDeliveryTime">0</div>
+                            <div class="text-sm text-slate-600">গড় ডেলিভারি সময়</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-purple-600" id="customerSatisfaction">0</div>
+                            <div class="text-sm text-slate-600">গ্রাহক সন্তুষ্টি</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analyticsSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="farmer.analytics">অ্যানালিটিক্স</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4">মাসিক বিক্রয়</h3>
+                        <canvas id="monthlyChart" width="400" height="300"></canvas>
+                    </div>
+                    
+                    <div class="card bg-white rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold text-slate-900 mb-4">পণ্য বিভাগ</h3>
+                        <canvas id="categoryChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div id="profileSection" class="content-section hidden p-8">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6" data-i18n="farmer.profile">প্রোফাইল</h2>
+                
+                <div class="card bg-white rounded-2xl p-6">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700">নাম</label>
+                                <input type="text" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" value="আবদুর রহিম">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700">ইমেইল</label>
+                                <input type="email" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" value="rahman@example.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">ফোন</label>
+                            <input type="tel" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" value="+880 1712-345678">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700">ঠিকানা</label>
+                            <textarea class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" rows="3">গ্রাম: পূর্ব বাড়ী, পোস্ট: শ্রীপুর, উপজেলা: শ্রীপুর, জেলা: গাজীপুর</textarea>
+                        </div>
+                        
+                        <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded-xl hover:bg-emerald-700">
+                            প্রোফাইল আপডেট করুন
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-8 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-slate-900" data-i18n="product.add_new">নতুন পণ্য যোগ করুন</h3>
+                <button id="closeModal" class="text-slate-400 hover:text-slate-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="addProductForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">পণ্যের নাম (বাংলা)</label>
+                        <input type="text" name="name_bn" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">পণ্যের নাম (ইংরেজি)</label>
+                        <input type="text" name="name" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">বিভাগ</label>
+                    <select name="category" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" required>
+                        <option value="">বিভাগ নির্বাচন করুন</option>
+                        <option value="grains">শস্য</option>
+                        <option value="vegetables">সবজি</option>
+                        <option value="fruits">ফল</option>
+                        <option value="spices">মসলা</option>
+                    </select>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">পরিমাণ</label>
+                        <input type="number" name="quantity" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">একক</label>
+                        <select name="unit" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" required>
+                            <option value="kg">কেজি</option>
+                            <option value="quintal">কুইন্টাল</option>
+                            <option value="ton">টন</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700">প্রতি একক মূল্য (৳)</label>
+                        <input type="number" name="price" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500" required>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">বিবরণ</label>
+                    <textarea name="description" rows="3" class="mt-1 block w-full border-slate-300 rounded-xl focus:ring-emerald-500 focus:border-emerald-500"></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">পণ্যের ছবি</label>
+                    <input type="file" name="images" multiple accept="image/*" class="mt-1 block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                </div>
+                
+                <div class="flex gap-3 pt-4">
+                    <button type="submit" class="flex-1 bg-emerald-600 text-white py-3 rounded-xl hover:bg-emerald-700 font-semibold">
+                        পণ্য যোগ করুন
+                    </button>
+                    <button type="button" id="cancelBtn" class="px-6 py-3 border border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50">
+                        বাতিল
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/i18n.js"></script>
+    <script src="/js/forms.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/charts.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/price-analytics.js"></script>
+    <script src="/js/order-management.js"></script>
+    <script src="/js/transport-management.js"></script>
+    <script src="/js/dashboard-navigation.js"></script>
+    <script src="/js/logout.js"></script>
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize i18n
+            I18n.init();
+            
+            // Modal functionality
+            const addProductBtn = document.getElementById('addProductBtn');
+            const addProductModal = document.getElementById('addProductModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelBtn = document.getElementById('cancelBtn');
+            
+            addProductBtn?.addEventListener('click', () => {
+                addProductModal.classList.remove('hidden');
+            });
+            
+            [closeModal, cancelBtn].forEach(btn => {
+                btn?.addEventListener('click', () => {
+                    addProductModal.classList.add('hidden');
+                });
+            });
+            
+            // Click outside modal to close
+            addProductModal?.addEventListener('click', (e) => {
+                if (e.target === addProductModal) {
+                    addProductModal.classList.add('hidden');
+                }
+            });
+            
+            // Initialize charts
+            if (typeof Chart !== 'undefined') {
+                // Sales Chart
+                const salesCtx = document.getElementById('salesChart');
+                if (salesCtx) {
+                    new Chart(salesCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['জানু', 'ফেব', 'মার্চ', 'এপ্রিল', 'মে', 'জুন'],
+                            datasets: [{
+                                label: 'বিক্রয় (৳)',
+                                data: [12000, 19000, 15000, 25000, 22000, 30000],
+                                borderColor: '#059669',
+                                backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            
+            // Price Analysis Tabs
+            const priceTabs = document.querySelectorAll('.price-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            priceTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    priceTabs.forEach(t => {
+                        t.classList.remove('active', 'border-emerald-500', 'text-emerald-600');
+                        t.classList.add('border-transparent', 'text-slate-500');
+                    });
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active', 'border-emerald-500', 'text-emerald-600');
+                    this.classList.remove('border-transparent', 'text-slate-500');
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.classList.add('hidden'));
+                    
+                    // Show selected tab content
+                    const targetTab = this.dataset.tab + 'Tab';
+                    const content = document.getElementById(targetTab);
+                    if (content) {
+                        content.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

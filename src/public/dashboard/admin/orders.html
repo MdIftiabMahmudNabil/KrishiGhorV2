@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার পরিচালনা - KrishiGhor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 font-['Inter']">
+    <!-- Navigation Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/dashboard/admin.html" class="flex items-center space-x-3">
+                        <img src="/assets/logo.png" alt="KrishiGhor Logo" class="h-10 w-auto">
+                        <span class="text-xl font-bold text-slate-900">KrishiGhor</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors">
+                            <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                <span class="text-purple-600 font-semibold text-sm">অ</span>
+                            </div>
+                            <span class="font-medium">অ্যাডমিন</span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">অর্ডার পরিচালনা</h1>
+            <p class="text-slate-600 mt-2">সকল অর্ডারের তালিকা এবং তাদের অবস্থা পরিচালনা করুন</p>
+        </div>
+
+        <!-- Order Management Tools -->
+        <div class="card mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center space-x-4">
+                    <button class="btn-secondary">
+                        <i class="fas fa-download mr-2"></i>
+                        এক্সপোর্ট করুন
+                    </button>
+                    <button class="btn-secondary">
+                        <i class="fas fa-tasks mr-2"></i>
+                        বাল্ক কার্যক্রম
+                    </button>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <input type="text" placeholder="অর্ডার খুঁজুন..." class="form-input" id="orderSearch">
+                    <select class="form-select" id="orderStatusFilter">
+                        <option value="">সকল অবস্থা</option>
+                        <option value="pending">অপেক্ষমান</option>
+                        <option value="confirmed">নিশ্চিত</option>
+                        <option value="shipped">পাঠানো</option>
+                        <option value="delivered">বিতরণকৃত</option>
+                        <option value="cancelled">বাতিল</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="card">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-slate-200">
+                            <th class="text-left p-4 font-semibold text-slate-700">অর্ডার আইডি</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">গ্রাহক</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">পণ্য</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">পরিমাণ</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">মূল্য</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">অবস্থা</th>
+                            <th class="text-left p-4 font-semibold text-slate-700">কার্যক্রম</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="p-4 font-mono text-slate-600">#ORD-001</td>
+                            <td class="p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <span class="text-blue-600 font-semibold">স</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate-900">সাবরিনা আক্তার</p>
+                                        <p class="text-sm text-slate-500">+880 1812-345678</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4 text-slate-600">বাসমতি চাল</td>
+                            <td class="p-4 text-slate-600">50 kg</td>
+                            <td class="p-4 font-semibold text-slate-900">৳6,000</td>
+                            <td class="p-4">
+                                <span class="badge badge-pending">অপেক্ষমান</span>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center space-x-2">
+                                    <button class="btn-sm btn-secondary">
+                                        <i class="fas fa-eye mr-1"></i>
+                                        দেখুন
+                                    </button>
+                                    <button class="btn-sm btn-primary">
+                                        <i class="fas fa-check mr-1"></i>
+                                        নিশ্চিত করুন
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="p-4 font-mono text-slate-600">#ORD-002</td>
+                            <td class="p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                        <span class="text-green-600 font-semibold">ম</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-slate-900">মাহমুদ হাসান</p>
+                                        <p class="text-sm text-slate-500">+880 1912-345678</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4 text-slate-600">টমেটো</td>
+                            <td class="p-4 text-slate-600">25 kg</td>
+                            <td class="p-4 font-semibold text-slate-900">৳2,000</td>
+                            <td class="p-4">
+                                <span class="badge badge-confirmed">নিশ্চিত</span>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center space-x-2">
+                                    <button class="btn-sm btn-secondary">
+                                        <i class="fas fa-eye mr-1"></i>
+                                        দেখুন
+                                    </button>
+                                    <button class="btn-sm btn-primary">
+                                        <i class="fas fa-shipping-fast mr-1"></i>
+                                        পাঠান
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/i18n.js"></script>
+    <script src="/js/forms.js"></script>
+    <script src="/js/logout.js"></script>
+    <script>
+        // Initialize i18n
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof I18n !== 'undefined') {
+                I18n.init();
+            }
+        });
+    </script>
+</body>
+</html>

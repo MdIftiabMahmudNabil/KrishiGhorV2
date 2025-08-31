@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Products - Buyer Dashboard | KrishiGhor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body class="bg-gradient-to-br from-sky-50 via-white to-emerald-50 min-h-screen font-['Inter']">
+    <!-- Navigation Header -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-sky-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="/dashboard/buyer.html" class="text-2xl font-bold text-sky-600">KrishiGhor</a>
+                    <span class="text-slate-600">Buyer Dashboard</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/dashboard/buyer.html" class="text-sky-600 hover:text-sky-700 font-medium">← Back to Dashboard</a>
+                    <a href="/login.html" class="text-slate-600 hover:text-slate-800 font-medium">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-slate-800 mb-2">Browse Products</h1>
+            <p class="text-slate-600">Discover fresh agricultural products from verified farmers across Bangladesh</p>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="card mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="md:col-span-2">
+                    <input type="text" placeholder="Search for products, farmers, or regions..." class="form-input w-full">
+                </div>
+                <div>
+                    <select class="form-select w-full">
+                        <option>All Categories</option>
+                        <option>Grains</option>
+                        <option>Vegetables</option>
+                        <option>Fruits</option>
+                        <option>Spices</option>
+                        <option>Dairy</option>
+                    </select>
+                </div>
+                <div>
+                    <select class="form-select w-full">
+                        <option>All Regions</option>
+                        <option>Dhaka</option>
+                        <option>Chittagong</option>
+                        <option>Sylhet</option>
+                        <option>Rajshahi</option>
+                        <option>Khulna</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Products -->
+        <div class="mb-8">
+            <h2 class="text-xl font-semibold text-slate-800 mb-6">Featured Products</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Product Card 1 -->
+                <div class="card hover:shadow-lg transition-shadow cursor-pointer">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=250&fit=crop&crop=center" alt="Basmati Rice" class="w-full h-48 object-cover rounded-t-xl">
+                        <div class="absolute top-3 right-3">
+                            <span class="status-badge status-premium">Premium</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-slate-800 mb-2">Premium Basmati Rice</h3>
+                        <p class="text-slate-600 text-sm mb-3">Aromatic long-grain rice with exceptional taste and texture</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-sky-600">৳120/kg</span>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★</span>
+                                <span class="text-slate-600">4.8 (24)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                            <span>Stock: 150 kg</span>
+                            <span>📍 Rajshahi</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="btn-primary flex-1">Add to Cart</button>
+                            <button class="btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="card hover:shadow-lg transition-shadow cursor-pointer">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=400&h=250&fit=crop&crop=center" alt="Fresh Tomatoes" class="w-full h-48 object-cover rounded-t-xl">
+                        <div class="absolute top-3 right-3">
+                            <span class="status-badge status-organic">Organic</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-slate-800 mb-2">Fresh Organic Tomatoes</h3>
+                        <p class="text-slate-600 text-sm mb-3">Pesticide-free tomatoes grown with natural farming methods</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-sky-600">৳80/kg</span>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★</span>
+                                <span class="text-slate-600">4.6 (18)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                            <span>Stock: 75 kg</span>
+                            <span>📍 Sylhet</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="btn-primary flex-1">Add to Cart</button>
+                            <button class="btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="card hover:shadow-lg transition-shadow cursor-pointer">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1550254478-ead40cc54513?w=400&h=250&fit=crop&crop=center" alt="Himsagar Mangoes" class="w-full h-48 object-cover rounded-t-xl">
+                        <div class="absolute top-3 right-3">
+                            <span class="status-badge status-seasonal">Seasonal</span>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-slate-800 mb-2">Himsagar Mangoes</h3>
+                        <p class="text-slate-600 text-sm mb-3">Sweet and juicy seasonal mangoes from the finest orchards</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl font-bold text-sky-600">৳200/kg</span>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★</span>
+                                <span class="text-slate-600">4.9 (31)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                            <span>Stock: 25 kg</span>
+                            <span>📍 Chapainawabganj</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="btn-primary flex-1">Add to Cart</button>
+                            <button class="btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- All Products -->
+        <div class="card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-slate-800">All Available Products</h2>
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-slate-600">Sort by:</span>
+                    <select class="form-select">
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Rating: High to Low</option>
+                        <option>Distance: Near to Far</option>
+                        <option>Newest First</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-slate-200">
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Product</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Farmer</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Region</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Price</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Rating</th>
+                            <th class="text-left py-3 px-4 font-medium text-slate-700">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=40&h=40&fit=crop&crop=center" alt="Rice" class="w-10 h-10 rounded-lg object-cover">
+                                    <div>
+                                        <div class="font-medium text-slate-800">Basmati Rice</div>
+                                        <div class="text-sm text-slate-500">Premium quality</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                                        <span class="text-sm font-medium text-emerald-600">AK</span>
+                                    </div>
+                                    <span class="text-slate-700">Abdul Karim</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4 text-slate-600">Rajshahi</td>
+                            <td class="py-3 px-4">
+                                <span class="font-semibold text-slate-800">৳120/kg</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-yellow-400">★</span>
+                                    <span class="text-slate-600">4.8</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex space-x-2">
+                                    <button class="btn-primary btn-sm">Add to Cart</button>
+                                    <button class="btn-secondary btn-sm">View</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?w=40&h=40&fit=crop&crop=center" alt="Tomatoes" class="w-10 h-10 rounded-lg object-cover">
+                                    <div>
+                                        <div class="font-medium text-slate-800">Fresh Tomatoes</div>
+                                        <div class="text-sm text-slate-500">Organic</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-8 h-8 bg-sky-100 rounded-full flex items-center justify-center">
+                                        <span class="text-sm font-medium text-sky-600">FB</span>
+                                    </div>
+                                    <span class="text-slate-700">Fatima Begum</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4 text-slate-600">Sylhet</td>
+                            <td class="py-3 px-4">
+                                <span class="font-semibold text-slate-800">৳80/kg</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-yellow-400">★</span>
+                                    <span class="text-slate-600">4.6</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex space-x-2">
+                                    <button class="btn-primary btn-sm">Add to Cart</button>
+                                    <button class="btn-secondary btn-sm">View</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1550254478-ead40cc54513?w=40&h=40&fit=crop&crop=center" alt="Mangoes" class="w-10 h-10 rounded-lg object-cover">
+                                    <div>
+                                        <div class="font-medium text-slate-800">Himsagar Mangoes</div>
+                                        <div class="text-sm text-slate-500">Seasonal</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                                        <span class="text-sm font-medium text-purple-600">RA</span>
+                                    </div>
+                                    <span class="text-slate-700">Rahman Ali</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4 text-slate-600">Chapainawabganj</td>
+                            <td class="py-3 px-4">
+                                <span class="font-semibold text-slate-800">৳200/kg</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex items-center space-x-1">
+                                    <span class="text-yellow-400">★</span>
+                                    <span class="text-slate-600">4.9</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4">
+                                <div class="flex space-x-2">
+                                    <button class="btn-primary btn-sm">Add to Cart</button>
+                                    <button class="btn-secondary btn-sm">View</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/logout.js"></script>
+</body>
+</html>
